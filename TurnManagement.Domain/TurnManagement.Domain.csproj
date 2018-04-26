@@ -39,9 +39,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Patient.cs" />
     <Compile Include="Entities\Professional.cs" />
+    <Compile Include="Entities\SpecialityByProfessional.cs" />
+    <Compile Include="Entities\Specialty.cs" />
+    <Compile Include="Entities\Turn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -75,6 +79,9 @@
     <Reference Include="Unity.ServiceLocation, Version=2.1.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.ServiceLocation.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enumerations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

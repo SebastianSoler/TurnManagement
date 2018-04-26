@@ -75,7 +75,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomException\BusinessException.cs" />
     <Compile Include="DBUtils\DDBBAccess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enumerations\" />
+    <Folder Include="Strings\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

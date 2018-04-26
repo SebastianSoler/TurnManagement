@@ -1,13 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace TurnManagement.Domain.Entities
 {
-    public class Professional : BaseEntity //Hacer heredar de BasePerson
+    public class Professional : BaseEntity
     {
         #region  Properties
-        [Key]
-        public string IdProfessional { get; set; }
 
         public string Name { get; set; }
 
@@ -15,11 +13,19 @@ namespace TurnManagement.Domain.Entities
 
         public string Dni { get; set; }
 
-        public DateTime Date { get; set; }
+        public string Genre { get; set; }
+
+        public string RegistrationNumber { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
 
         public string  Address { get; set; }
 
-        public string Telphone { get; set; }
+        public string CellPhone { get; set; }
+
+        public string Phone { get; set; }
+
+        public virtual IList<Specialty> Specialties { get; set; } = new List<Specialty>();
 
         #endregion
     }
