@@ -9,24 +9,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using TurnManagement.DataAccess.Interfaces.Persistence.Core;
 using TurnManagement.DataAccess.Persistence.EntityConfiguration;
+using TurnManagement.DataAccess.Persistence.EntityConfigurations;
 using TurnManagement.Domain.Entities;
 
 namespace TurnManagement.DataAccess.Persistence.Core
 {
     public class TurnManagementDataContext : DbContext, ITurnManagementDataContext
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["PropagoConnection"].ToString();
+        private static string connectionString = ConfigurationManager.ConnectionStrings["TurnManagementConnection"].ToString();
 
         public string DataBaseName { get { return Database.Connection.Database; } }
 
         public virtual IDbSet<Professional> Professionals { get; set; }
         public virtual IDbSet<Patient> Patients { get; set; }
+        public virtual IDbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public TurnManagementDataContext(): base(nameOrConnectionString: connectionString)
         {
-            Configuration.ProxyCreationEnabled = true;
-            Configuration.LazyLoadingEnabled = true;
-
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TurnManagementDataContext, Migrations.Configuration>());
 
             ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 120;
@@ -41,7 +40,9 @@ namespace TurnManagement.DataAccess.Persistence.Core
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.Configurations.Add(new ProfessionalConfiguration());
-            
+            modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
+            modelBuilder.Configurations.Add(new PatientConfiguration());
+
         }
 
         public int SaveChanges(string loggedUser)

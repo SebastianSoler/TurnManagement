@@ -1,5 +1,5 @@
 ﻿<dxr:DXRibbonWindow
-    x:Class="TurnManagement.WPFApp.Test.MainWindow"
+    x:Class="TurnManagement.WPFApp.Test.Test"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TurnManagement.WPFApp.Test"

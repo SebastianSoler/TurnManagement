@@ -20,12 +20,11 @@ using DevExpress.Xpf.NavBar;
 
 namespace TurnManagement.WPFApp.Test
 {
-    public partial class MainWindow : DXRibbonWindow
+    public partial class Test : DXRibbonWindow
     {
-        public MainWindow()
+        public Test()
         {
             InitializeComponent();
-
         }
 
     }

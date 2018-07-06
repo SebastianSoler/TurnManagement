@@ -5,9 +5,9 @@ using TurnManagement.Domain.Entities;
 
 namespace TurnManagement.DataAccess.Persistence.Repositories
 {
-    public class ProfessionalRepository : BaseCrudRepository<Professional>, IProfessionalRepository
+    public class ProfessionalRepository //: BaseCrudRepository<Professional>, IProfessionalRepository
     {
-        public ProfessionalRepository(ITurnManagementDataContext context) : base(context)
+        public ProfessionalRepository(ITurnManagementDataContext context) //: base(context)
         {
         }
     }

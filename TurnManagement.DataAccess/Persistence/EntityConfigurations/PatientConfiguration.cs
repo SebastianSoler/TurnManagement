@@ -5,7 +5,7 @@ namespace TurnManagement.DataAccess.Persistence.EntityConfigurations
 {
     public class PatientConfiguration : BaseEntityConfiguration<Patient>
     {
-        public PatientConfiguration()
+        public PatientConfiguration() : base()
         {
             
         }

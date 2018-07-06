@@ -10,7 +10,7 @@ namespace TurnManagement.DataAccess.Persistence.EntityConfiguration
 
             Property(x => x.SurName).HasMaxLength(256).IsRequired();
              
-            Property(x => x.Date).IsRequired();
+            Property(x => x.DateOfBirth).IsRequired();
 
             Property(x => x.CellPhone).HasMaxLength(25).IsOptional();
 

@@ -16,7 +16,7 @@ namespace TurnManagement.DataAccess.Migrations.Initializers
             return new List<Professional>
             {
                 new Professional{ Id = 1, Name = "Sebastian" }
-                //Crear los necesarios para ver como repercute en la Base de DAtos.
+                //Crear los necesarios para ver como repercute en la Base de Datos.
             }.AsQueryable();
         }
     }
