@@ -59,7 +59,6 @@ namespace TurnManagement.ViewModels.ViewModel
             var userPass = ApplicationUserVM.Password;
 
             //Validaciones
-            ApplicationUserVM.UserName = "PASEEEEE !!";
 
             ApplicationUser newUser = new ApplicationUser()
             {
@@ -67,7 +66,7 @@ namespace TurnManagement.ViewModels.ViewModel
                 Password = userPass
             };
 
-            //var newId = applicationUserService.Add(newUser);
+            var newId = applicationUserService.Add(newUser);
         }
 
         public void GetCommand()

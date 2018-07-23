@@ -1,7 +1,4 @@
-﻿using TurnManagement.DataAccess.Interfaces.Persistence.Core;
-using TurnManagement.DataAccess.Persistence.Core;
-using Unity;
-using Unity.Lifetime;
+﻿using Unity;
 using Unity.RegistrationByConvention;
 
 namespace TurnManagement.DataAccess.App_Start
@@ -10,13 +7,13 @@ namespace TurnManagement.DataAccess.App_Start
     {
         public static void RegisterComponents(IUnityContainer container)
         {
+            CrossCutting.App_Start.UnityConfig.RegisterComponents(container);
+
             container.RegisterTypes(
                 AllClasses.FromAssemblies(typeof(UnityConfig).Assembly),
                 WithMappings.FromMatchingInterface,
-                WithName.Default);
-
-            //Singleton DataContext Implementation
-            container.RegisterType<ITurnManagementDataContext, TurnManagementDataContext>(new HierarchicalLifetimeManager());
+                WithName.Default,
+                WithLifetime.ContainerControlled);
         }
     }
 }

@@ -12,11 +12,11 @@ namespace TurnManagement.Business.Core
 {
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : BaseEntity
     {        
-        protected readonly IBaseCrudRepository<TEntity> baseRepository;
+        protected readonly IBaseRepository<TEntity> baseRepository;
                 
         protected IList<string> entityValidationsMessages = new List<string>();
 
-        public BaseService(IBaseCrudRepository<TEntity> baseRepository)
+        public BaseService(IBaseRepository<TEntity> baseRepository)
         {
             this.baseRepository = baseRepository;
         }       

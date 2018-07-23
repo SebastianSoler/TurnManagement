@@ -11,14 +11,6 @@ namespace TurnManagement.DataAccess.Persistence.EntityConfiguration
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-            Property(x => x.CreatedDate).IsRequired();
-
-            Property(x => x.CreatedBy).IsRequired();
-
-            Property(x => x.ModifiedBy).IsOptional();
-
-            Property(x => x.ModifiedDate).IsOptional();
                         
             Property(x => x.IsDeleted).IsRequired();
 

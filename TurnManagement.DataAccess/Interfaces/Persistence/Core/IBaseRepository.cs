@@ -5,7 +5,7 @@ using TurnManagement.Domain.Entities;
 
 namespace TurnManagement.DataAccess.Interfaces.Persistence.Core
 {
-    public interface IBaseCrudRepository<TEntity> : IDisposable where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity> : IDisposable where TEntity : BaseEntity
     {
         TEntity Get(int id, bool asNoTracking = true);
         

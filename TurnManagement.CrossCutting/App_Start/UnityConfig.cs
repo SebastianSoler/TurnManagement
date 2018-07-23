@@ -7,11 +7,11 @@ namespace TurnManagement.CrossCutting.App_Start
     {
         public static void RegisterComponents(IUnityContainer container)
         {
-
             container.RegisterTypes(
                 AllClasses.FromAssemblies(typeof(UnityConfig).Assembly),
                 WithMappings.FromMatchingInterface,
-                WithName.Default);
+                WithName.Default,
+                WithLifetime.ContainerControlled);
 
         }
     }

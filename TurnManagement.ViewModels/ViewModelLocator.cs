@@ -12,25 +12,9 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using System;
-using System.Data.Entity;
 using CommonServiceLocator;
-using TurnManagement.Business.Core;
-using TurnManagement.Business.Interfaces.Core;
-using TurnManagement.Business.Interfaces.Services;
-using TurnManagement.Business.Services;
-using TurnManagement.DataAccess.Interfaces.Persistence.Core;
-using TurnManagement.DataAccess.Interfaces.Persistence.Repositories;
-using TurnManagement.DataAccess.Migrations.Initializers;
-using TurnManagement.DataAccess.Persistence.Core;
-using TurnManagement.DataAccess.Persistence.EntityConfiguration;
-using TurnManagement.DataAccess.Persistence.Repositories;
-using TurnManagement.Domain.Entities;
-using TurnManagement.ViewModels.Interfaces;
+using TurnManagement.ViewModels.App_Start;
 using TurnManagement.ViewModels.ViewModel;
-using Unity;
-using Unity.Injection;
-using Unity.Lifetime;
 using Unity.ServiceLocation;
 
 namespace TurnManagement.ViewModels
@@ -46,32 +30,10 @@ namespace TurnManagement.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
-            var unityContainer = new UnityContainer();
-            //.RegisterType<>();
+            var unityContainer = UnityConfig.GetConfiguredContainer();
 
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
 
-            unityContainer.RegisterType<ITurnManagementDataContext, TurnManagementDataContext>();
-
-            //unityContainer.RegisterType(typeof(IBaseCrudRepository<>), typeof(BaseCrudRepository<>), new TransientLifetimeManager());
-
-            //unityContainer.RegisterType<BaseEntity>();
-
-            //unityContainer.RegisterType(typeof(IBaseService<>), typeof(BaseService<>), new TransientLifetimeManager());
-            
-
-            unityContainer.RegisterType<IApplicationUserRepository, ApplicationUserRepository>();
-            
-
-            unityContainer.RegisterType<IApplicationUserService, ApplicationUserService>();
-
-            //unityContainer.RegisterType<ApplicationUserService>(new InjectionConstructor(
-            //    new ResolvedParameter<ITurnManagementDataContext>()));
-
-            //unityContainer.RegisterType<IBaseCommandViewModel>();
-            //unityContainer.RegisterType<TestViewModel>(new ContainerControlledLifetimeManager());
-
-            unityContainer.RegisterType<IBaseCommandViewModel, TestViewModel>();
             //unityContainer.RegisterType<MainViewModel>();
         }
 

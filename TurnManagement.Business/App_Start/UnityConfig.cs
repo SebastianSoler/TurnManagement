@@ -13,7 +13,8 @@ namespace TurnManagement.Business.App_Start
             container.RegisterTypes(
                 AllClasses.FromAssemblies(typeof(UnityConfig).Assembly),
                 WithMappings.FromMatchingInterface,
-                WithName.Default);
+                WithName.Default,
+                WithLifetime.ContainerControlled);
         }
     }
 }

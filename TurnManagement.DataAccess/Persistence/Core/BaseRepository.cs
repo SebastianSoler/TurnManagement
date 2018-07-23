@@ -8,7 +8,7 @@ using TurnManagement.Domain.Entities;
 
 namespace TurnManagement.DataAccess.Persistence.Core
 {
-    public class BaseCrudRepository<TEntity> : IBaseCrudRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         protected ITurnManagementDataContext dataContext { get; }
 
@@ -16,7 +16,7 @@ namespace TurnManagement.DataAccess.Persistence.Core
 
         private bool disposed;
 
-        public BaseCrudRepository(ITurnManagementDataContext dataContext)
+        public BaseRepository(ITurnManagementDataContext dataContext)
         {
             this.dataContext = dataContext;
 
@@ -85,7 +85,6 @@ namespace TurnManagement.DataAccess.Persistence.Core
 
         public int SaveChanges()
         {
-            //var loggedUser = SessionProvider.GetUserName() ?? "Anonymous";
             var loggedUser = "Admin";
 
             return dataContext.SaveChanges(loggedUser);
@@ -121,7 +120,9 @@ namespace TurnManagement.DataAccess.Persistence.Core
                 return baseCollection;
             }
 
-            var info = context.GetType().GetProperty(typeof(TEntity).Name);
+            var propertyName = string.Concat(typeof(TEntity).Name, "s");
+
+            var info = context.GetType().GetProperty(propertyName);
 
             return (DbSet<TEntity>)info.GetValue(context);
         }

@@ -11,6 +11,8 @@
     <AssemblyName>TurnManagement.ViewModels</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\UnityActivator.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="EntitiesVM\ApplicationUserVM.cs" />
     <Compile Include="EntitiesVM\BaseEntityVM.cs" />
     <Compile Include="Interfaces\IBaseCommandViewModel.cs" />
@@ -116,5 +120,6 @@
       <Name>TurnManagement.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

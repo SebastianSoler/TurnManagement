@@ -11,6 +11,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +41,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TurnManagement.CrossCutting\TurnManagement.CrossCutting.csproj">
+      <Project>{45307202-a020-4a1a-b9b1-d5fa85002050}</Project>
+      <Name>TurnManagement.CrossCutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TurnManagement.Domain\TurnManagement.Domain.csproj">
       <Project>{1B135255-27E8-4983-93D7-846F13128D91}</Project>
       <Name>TurnManagement.Domain</Name>
@@ -46,27 +52,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="Interfaces\Persistence\Core\IBaseCrudRepository.cs" />
+    <Compile Include="Interfaces\Persistence\Core\IBaseRepository.cs" />
     <Compile Include="Interfaces\Persistence\Core\ITurnManagementDataContext.cs" />
     <Compile Include="Interfaces\Persistence\Core\IQuerableDataContext.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IPatientRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IProfessionalRepository.cs" />
-    <Compile Include="Migrations\201805050442299_TurnManagement.cs" />
-    <Compile Include="Migrations\201805050442299_TurnManagement.Designer.cs">
-      <DependentUpon>201805050442299_TurnManagement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\DataInitializer.cs" />
-    <Compile Include="Migrations\Initializers\ApplicationUserDataInitializer.cs" />
-    <Compile Include="Migrations\Initializers\ProfessionalDataInitializer.cs" />
-    <Compile Include="Migrations\Initializers\InitializerBase.cs" />
-    <Compile Include="Persistence\Core\BaseCrudRepository.cs" />
+    <Compile Include="Persistence\Core\BaseRepository.cs" />
     <Compile Include="Persistence\Core\TurnManagementDataContext.cs" />
-    <Compile Include="Persistence\EntityConfigurations\ApplicationUserConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\BaseEntityConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\PatientConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\ProfessionalConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfiguration\ApplicationUserConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfiguration\BaseEntityConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfiguration\PatientConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfiguration\ProfessionalConfiguration.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Persistence\Repositories\PatientRepository.cs" />
     <Compile Include="Persistence\Repositories\ProfessionalRepository.cs" />
@@ -116,11 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805050442299_TurnManagement.resx">
-      <DependentUpon>201805050442299_TurnManagement.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
