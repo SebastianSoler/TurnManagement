@@ -20,9 +20,9 @@ namespace TurnManagement.DataAccess.Persistence.Core
 
         public virtual IDbSet<Professional> Professionals { get; set; }
         public virtual IDbSet<Patient> Patients { get; set; }
-        public virtual IDbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual IDbSet<ApplicationUser> ApplicationUser { get; set; }
 
-        public TurnManagementDataContext(): base("name=TurnManagementConnection")
+        public TurnManagementDataContext(): base(connectionString)//("name=TurnManagementConnection")
         {
             Configuration.ProxyCreationEnabled = true;
             Configuration.LazyLoadingEnabled = true;

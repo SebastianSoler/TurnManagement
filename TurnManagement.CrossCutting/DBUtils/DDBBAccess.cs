@@ -24,6 +24,22 @@ namespace Propago.Net.CrossCutting.DDBBUtils
             return GetSqlCommand(query, parameters, customTimeOut).ExecuteReader();
         }
 
+        public static bool ValidateDBConnection()
+        {
+            bool resp = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    resp = true;
+                }
+            }
+            catch (SqlException){ resp = false; }
+
+            return resp;
+        }
+
         private static SqlCommand GetSqlCommand(string commandText, IList<SqlParameter> parameters = null, int? customTimeOut = null)
         {            
             var command = new SqlCommand();

@@ -8,6 +8,6 @@ namespace TurnManagement.DataAccess.Interfaces.Persistence.Core
     {
         IDbSet<Professional> Professionals{ get; set; }
         IDbSet<Patient> Patients { get; set; }
-        IDbSet<ApplicationUser> ApplicationUsers { get; set; }
+        IDbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

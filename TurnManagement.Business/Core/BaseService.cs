@@ -27,7 +27,7 @@ namespace TurnManagement.Business.Core
 
             if (item == null)
             {
-                throw new BusinessException(GeneralMessages.InvalidItem);
+                throw new BusinessException("No es posible obtener el dato requerido o es invalido");
             }
             
             return item;

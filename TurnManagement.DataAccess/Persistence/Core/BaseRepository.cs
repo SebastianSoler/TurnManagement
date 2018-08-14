@@ -122,7 +122,7 @@ namespace TurnManagement.DataAccess.Persistence.Core
 
             var propertyName = string.Concat(typeof(TEntity).Name, "s");
 
-            var info = context.GetType().GetProperty(propertyName);
+            var info = context.GetType().GetProperty(typeof(TEntity).Name);
 
             return (DbSet<TEntity>)info.GetValue(context);
         }

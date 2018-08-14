@@ -1,0 +1,25 @@
+﻿<local1:BaseDialogUserControl
+      x:Class="TurnManagement.App_Turn.Views.Dialogs.DialogMessageBox"
+      xmlns:local1="clr-namespace:TurnManagement.App_Turn.DialogControls"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TurnManagement.App_Turn.Views.Dialogs"
+      mc:Ignorable="d" 
+      Title="Dialog Title">
+
+    <StackPanel Background="Green">
+
+        <TextBlock Text="{Binding Titulazoo}"
+                   Padding="5"
+                   Foreground="Gray"/>
+
+        <!--Falta el Command de Closeee "CloseCommand" -->
+        <Button Content="MENSAJE!"
+                IsDefault="True"
+                IsCancel="True"
+                FontSize="20"
+                HorizontalAlignment="Center"/>
+    </StackPanel>
+</local1:BaseDialogUserControl>

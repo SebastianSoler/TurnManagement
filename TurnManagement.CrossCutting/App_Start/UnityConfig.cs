@@ -12,7 +12,6 @@ namespace TurnManagement.CrossCutting.App_Start
                 WithMappings.FromMatchingInterface,
                 WithName.Default,
                 WithLifetime.ContainerControlled);
-
         }
     }
 }
