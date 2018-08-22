@@ -8,7 +8,7 @@ using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.App_Turn.ViewModel.Dialogs;
 using TurnManagement.App_Turn.Views.Dialogs;
 
-namespace TurnManagement.App_Turn.DialogControls
+namespace TurnManagement.App_Turn.Controls
 {
     /// <summary>
     /// The base class for any content that is being used inside of a <see cref="DialogWindow"/>

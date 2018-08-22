@@ -1,6 +1,6 @@
 ﻿<local1:BaseDialogUserControl
       x:Class="TurnManagement.App_Turn.Views.Dialogs.DialogMessageBox"
-      xmlns:local1="clr-namespace:TurnManagement.App_Turn.DialogControls"
+      xmlns:local1="clr-namespace:TurnManagement.App_Turn.Controls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

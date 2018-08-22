@@ -1,9 +1,9 @@
 using System;
-using System.Security;
 using System.Threading.Tasks;
+using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using Propago.Net.CrossCutting.DDBBUtils;
-using TurnManagement.App_Turn.DialogControls.Checks;
+using TurnManagement.App_Turn.Controls.Checks;
 using TurnManagement.App_Turn.ViewModel.Application;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.Business.Interfaces.Services;
@@ -60,32 +60,36 @@ namespace TurnManagement.App_Turn.ViewModel
             {
                 if (DDBBAccess.ValidateDBConnection())
                 {
-                    var I = 0;
-                }
+                    if (string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(PasswordPlainText))
+                    {
+                        StatusMessage = string.Concat(AccountMessages.WrongCredentials, "\n\nVerifique que los campos no esten incompletos.");
+                        PasswordPlainText = string.Empty;
+                        UserName = string.Empty;
+                    }
+                    else
+                    {
+                        ApplicationUser logUser = new ApplicationUser()
+                        {
+                            UserName = UserName,
+                            Password = PasswordPlainText
+                        };
 
-                if (string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(PasswordPlainText))
-                {
-                    StatusMessage = string.Concat(AccountMessages.WrongCredentials, "\n\nVerifique que los campos no esten incompletos.");
-                    PasswordPlainText = string.Empty;
-                    UserName = string.Empty;
+                        IsLog = applicationUserService.LoginUser(logUser);
+
+                        StatusMessage = IsLog ? AccountMessages.CorrectCredentials : AccountMessages.WrongCredentials;
+                    }
+
+                    var resp = PostLogAction(IsLog);
                 }
                 else
                 {
-                    ApplicationUser logUser = new ApplicationUser()
-                    {
-                        UserName = UserName,
-                        Password = PasswordPlainText
-                    };
-
-                    IsLog = applicationUserService.LoginUser(logUser);
-
-                    StatusMessage = IsLog ? AccountMessages.CorrectCredentials : AccountMessages.WrongCredentials;
+                    MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.InitApp, MessageBoxButton.OK, MessageBoxImage.Stop, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 }
-
-                var resp = PostLogAction(IsLog);
             }
             catch (Exception)
             {
+                //TODO: Mensaje de error por Exception.
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.LoginTitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 //throw ex; ver si hace fata mostrar mensaje de Error con Message box Sencillo.
             }
         }
@@ -96,16 +100,22 @@ namespace TurnManagement.App_Turn.ViewModel
             {
                 try
                 {
-                    //Loggin Successfuly Open Main Page
-                    applicationViewModel.GoToPage(CrossCutting.Enumerations.ApplicationPage.Main);
+                    var result = await CheckDisplayMessage.DisplayMessageBox(GeneralMessages.LoginTitle, StatusMessage);
+
+                    //Loggin Successfuly & Open Main Page
+                    applicationViewModel.HandleSuccessfulLogin();                    
                 }
-                catch (Exception){}
+                catch (Exception e)
+                {
+                    //TODO: Mensaje de error al Abrir Main.
+                    MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.LoginTitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                }
             }
             else
             {
                 try
                 {
-                    var result = await CheckDisplayError.DisplayErrorMessageBox(GeneralMessages.LoginTitle, StatusMessage);
+                    var result = await CheckDisplayMessage.DisplayMessageBox(GeneralMessages.LoginTitle, StatusMessage);
 
                     // Display error
                     if (result)
@@ -121,7 +131,9 @@ namespace TurnManagement.App_Turn.ViewModel
         {
             try
             {
-                var result = await CheckDisplayError.DisplayErrorMessageBox(GeneralMessages.InfoContact, AccountMessages.ForgetPassContactInfo);
+                var messageContact = string.Concat(AccountMessages.ForgetPassMessage, AccountMessages.AdminInfo);
+
+                var result = await CheckDisplayMessage.DisplayMessageBox(GeneralMessages.InfoContact, messageContact);
 
                 // Display error
                 if (result)

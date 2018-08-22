@@ -22,7 +22,7 @@ namespace TurnManagement.DataAccess.Persistence.Core
         public virtual IDbSet<Patient> Patients { get; set; }
         public virtual IDbSet<ApplicationUser> ApplicationUser { get; set; }
 
-        public TurnManagementDataContext(): base(connectionString)//("name=TurnManagementConnection")
+        public TurnManagementDataContext(): base(connectionString)
         {
             Configuration.ProxyCreationEnabled = true;
             Configuration.LazyLoadingEnabled = true;

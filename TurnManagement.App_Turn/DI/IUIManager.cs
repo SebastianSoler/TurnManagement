@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.App_Turn.ViewModel.Dialogs;
 
 namespace TurnManagement.App_Turn.DI
@@ -14,5 +15,12 @@ namespace TurnManagement.App_Turn.DI
         /// <param name="viewModel">The view model</param>
         /// <returns></returns>
         Task ShowMessage(MessageBoxDialogViewModel viewModel);
+
+        /// <summary>
+        /// Displays a Main Page
+        /// </summary>
+        /// <param name="viewModel">The view model</param>
+        /// <returns></returns>
+        void ShowPage(BaseViewModel mainViewModel);
     }
 }

@@ -191,10 +191,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\Dialogs\Dialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Dialogs\DialogMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -221,8 +217,9 @@
     </Compile>
     <Compile Include="App_Start\UnityActivator.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="DialogControls\BaseDialogUserControl.cs" />
-    <Compile Include="DialogControls\Utils\CheckDisplayError.cs" />
+    <Compile Include="Controls\BaseDialogUserControl.cs" />
+    <Compile Include="Controls\BaseWindowControl.cs" />
+    <Compile Include="Controls\Utils\CheckDisplayMessage.cs" />
     <Compile Include="DI\DI.cs" />
     <Compile Include="DI\IUIManager.cs" />
     <Compile Include="DI\UIManager.cs" />
@@ -237,9 +234,6 @@
     <Compile Include="ViewModel\Dialogs\DialogWindowViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
-    <Compile Include="Views\Dialogs\Dialog.xaml.cs">
-      <DependentUpon>Dialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dialogs\DialogMessageBox.xaml.cs">
       <DependentUpon>DialogMessageBox.xaml</DependentUpon>
     </Compile>

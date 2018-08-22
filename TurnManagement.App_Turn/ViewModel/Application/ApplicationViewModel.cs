@@ -30,7 +30,7 @@ namespace TurnManagement.App_Turn.ViewModel.Application
         /// </summary>
         /// <param name="page">The page to go to</param>
         /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-        public void GoToPage(ApplicationPage page, BaseViewModel viewModel = null)
+        public void SetCurrentPage(ApplicationPage page, BaseViewModel viewModel = null)
         {
             // Set the view model
             CurrentPageViewModel = viewModel;
@@ -41,10 +41,11 @@ namespace TurnManagement.App_Turn.ViewModel.Application
             // Set the current page
             CurrentPage = page;
 
-            // If the page hasn't changed, fire off notification
-            // So pages still update if just the view model has changed
-            if (!different)
-                OnPropertyChanged(nameof(CurrentPage));
+            //Enviar a Pagina que viene por parametro.[viewModel]
+            var mainVM = CommonServiceLocator.ServiceLocator.Current.GetInstance<MainViewModel>();
+
+            DI.DI.UI.ShowPage(mainVM);
+
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace TurnManagement.App_Turn.ViewModel.Application
         public void HandleSuccessfulLogin()
         {
             // Go to Main page
-            DI.DI.ViewModelApplication.GoToPage(ApplicationPage.Main);
+            DI.DI.ViewModelApplication.SetCurrentPage(ApplicationPage.Main);
         }
     }
 }

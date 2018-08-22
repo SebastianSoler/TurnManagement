@@ -1,34 +1,22 @@
 using GalaSoft.MvvmLight;
+using TurnManagement.App_Turn.ViewModel.Application;
+using TurnManagement.App_Turn.ViewModel.Base;
+using TurnManagement.Business.Interfaces.Services;
 
 namespace TurnManagement.App_Turn.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
-    public class MainViewModel : ViewModelBase
+
+    public class MainViewModel : BaseViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        public MainViewModel()
+        private readonly IApplicationUserService applicationUserService;
+
+        private ApplicationViewModel applicationViewModel;
+
+        public MainViewModel(IApplicationUserService applicationUserService)
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+            this.applicationUserService = applicationUserService;
+
+            applicationViewModel = new ApplicationViewModel();
         }
     }
 }

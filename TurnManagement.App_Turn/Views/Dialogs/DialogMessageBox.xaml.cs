@@ -1,4 +1,4 @@
-﻿using TurnManagement.App_Turn.DialogControls;
+﻿using TurnManagement.App_Turn.Controls;
 
 namespace TurnManagement.App_Turn.Views.Dialogs
 {

@@ -6,12 +6,13 @@
 
         public const string Welcome = "Bienvenido";
         public const string ApplicationName = "Turn Management";
-        public const string AdminInfo = "Soler Sebastian | (2257)-664064";
+        public const string AdminInfo = "\n\nSoler Sebastian | (2257)-664064";
 
         #endregion
 
         #region Login Messages
 
+        public const string ForgetPassMessage = "Para realizar el blanqueo de contraseña, contáctese con el Administrador del sistema.";
         public const string CorrectCredentials = "Ingreso exitoso!\n\nBienvenido!";
         public const string WrongCredentials = "El usuario o la contraseña son incorrectos";
         public const string LoginProblem = "Ocurrió un inconveniente al intentar loguearse";

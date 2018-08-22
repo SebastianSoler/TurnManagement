@@ -6,7 +6,7 @@
 
         //Titles
         public const string LoginTitle = "Ingreso al Sistema";
-
+        public const string InitApp = "Inicio del Sistema";
         public const string InfoContact = "Información de Contacto";
     }
 }
