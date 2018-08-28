@@ -12,7 +12,7 @@ namespace TurnManagement.Domain.Entities
 
         public int SpecialityId { get; set; }
 
-        public virtual Specialty Specialty { get; set; }
+        public virtual Speciality Specialty { get; set; }
 
         public DateTime Date { get;  set; }
 

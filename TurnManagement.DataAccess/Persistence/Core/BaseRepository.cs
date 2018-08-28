@@ -120,8 +120,6 @@ namespace TurnManagement.DataAccess.Persistence.Core
                 return baseCollection;
             }
 
-            var propertyName = string.Concat(typeof(TEntity).Name, "s");
-
             var info = context.GetType().GetProperty(typeof(TEntity).Name);
 
             return (DbSet<TEntity>)info.GetValue(context);

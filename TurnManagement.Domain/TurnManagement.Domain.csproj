@@ -46,7 +46,7 @@
     <Compile Include="Entities\Patient.cs" />
     <Compile Include="Entities\Professional.cs" />
     <Compile Include="Entities\SpecialityByProfessional.cs" />
-    <Compile Include="Entities\Specialty.cs" />
+    <Compile Include="Entities\Speciality.cs" />
     <Compile Include="Entities\Turn.cs" />
   </ItemGroup>
   <ItemGroup>

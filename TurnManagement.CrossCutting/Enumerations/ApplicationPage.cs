@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TurnManagement.CrossCutting.Enumerations
+﻿namespace TurnManagement.CrossCutting.Enumerations
 {
     public enum ApplicationPage
     {
@@ -17,5 +11,10 @@ namespace TurnManagement.CrossCutting.Enumerations
         /// The main page
         /// </summary>
         Main = 1,
+
+        /// <summary>
+        /// New Turn page
+        /// </summary>
+        Turns = 2,
     }
 }

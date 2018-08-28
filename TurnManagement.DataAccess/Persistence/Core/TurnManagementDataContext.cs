@@ -18,8 +18,8 @@ namespace TurnManagement.DataAccess.Persistence.Core
 
         public string DataBaseName { get { return Database.Connection.Database; } }
 
-        public virtual IDbSet<Professional> Professionals { get; set; }
-        public virtual IDbSet<Patient> Patients { get; set; }
+        public virtual IDbSet<Professional> Professional { get; set; }
+        public virtual IDbSet<Patient> Patient { get; set; }
         public virtual IDbSet<ApplicationUser> ApplicationUser { get; set; }
 
         public TurnManagementDataContext(): base(connectionString)

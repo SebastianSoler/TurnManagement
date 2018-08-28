@@ -1,6 +1,6 @@
 ﻿namespace TurnManagement.Domain.Entities
 {
-    public class Specialty : BaseEntity
+    public class Speciality : BaseEntity
     {
        public string Name { get; set; }
     }

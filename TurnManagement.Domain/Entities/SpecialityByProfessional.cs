@@ -2,12 +2,11 @@
 {
     public class SpecialityByProfessional
     {
-
         #region Properties
 
         public int SpeialityId { get; set; }
 
-        public virtual Specialty Specialty { get; set; }
+        public virtual Speciality Specialty { get; set; }
 
         public int ProfessionalId { get; set; }
 

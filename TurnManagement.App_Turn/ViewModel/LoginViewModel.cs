@@ -41,7 +41,8 @@ namespace TurnManagement.App_Turn.ViewModel
         {
             this.applicationUserService = applicationUserService;
 
-            applicationViewModel = new ApplicationViewModel();
+            //applicationViewModel = new ApplicationViewModel();
+            applicationViewModel = DI.DI.ViewModelApplication;
 
             LogUserCommand = new RelayCommand(execute: () => LoguinUserCommand());
 
@@ -49,7 +50,7 @@ namespace TurnManagement.App_Turn.ViewModel
             ForgetPassword = new RelayCommand(execute: () => ForgetThePaswordInfo());
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-            SendEmail = new RelayCommand(SendEmailForPasswordBlank);
+            //SendEmail = new RelayCommand(SendEmailForPasswordBlank);
         }
 
         #region  Commands Implements
@@ -105,7 +106,7 @@ namespace TurnManagement.App_Turn.ViewModel
                     //Loggin Successfuly & Open Main Page
                     applicationViewModel.HandleSuccessfulLogin();                    
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //TODO: Mensaje de error al Abrir Main.
                     MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.LoginTitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);

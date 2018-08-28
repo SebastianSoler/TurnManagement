@@ -1,66 +1,198 @@
-﻿<Window x:Class="TurnManagement.App_Turn.Views.MainWindow"
+﻿<dxr:DXRibbonWindow
+        x:Class="TurnManagement.App_Turn.Views.MainWindow"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxd="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+        xmlns:dxnb="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dxt="http://schemas.devexpress.com/winfx/2008/xaml/core/themekeys"
         
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
 
         Title="Sistema de Turnos" 
-        Height="600" Width="1024"
-        ResizeMode="CanMinimize"
-        WindowStyle="None" AllowsTransparency="True" 
-        WindowStartupLocation="CenterScreen"
-        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <!--Border inicial de la Aplication con Minimizador y Cierre -->
-        <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="30"/>
-                </Grid.ColumnDefinitions>
-                <materialDesign:ColorZone Mode="Dark" Grid.ColumnSpan="2">
-                    <StackPanel HorizontalAlignment="Right">
-                        <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="0" 
-                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" CommandTarget="{Binding ElementName=cierre}">
-                            <materialDesign:PackIcon Kind="WindowClose"/>
-                        </Button>
-                    </StackPanel>
-                </materialDesign:ColorZone>
-                <materialDesign:ColorZone Mode="Dark" Grid.ColumnSpan="1" Margin="0 0 5 0">
-                    <StackPanel HorizontalAlignment="Right">
-                        <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="0" Click="MinimizeWindow">
-                            <materialDesign:PackIcon Kind="WindowMinimize"/>
-                        </Button>
-                    </StackPanel>
-                </materialDesign:ColorZone>
-            </Grid>
-        </Border>
+        Height="800" Width="1280"
+        ResizeMode="NoResize"
+        WindowStyle="None" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen" 
+        UseLayoutRounding="True"
+        Icon="{dx:DXImage Image=Notes_32x32.png}">
+    <!--="{Binding MainViewModel, Source={StaticResource Locator}}"-->
+    <dxb:BarManager x:Name="barManager" ToolbarGlyphSize="Small" DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+        <!--DECLARACION DE BOTONES-->
+        <dxb:BarManager.Items>
+            <dxb:BarButtonItem Command="{Binding Path=NewTurnCommand, Mode=OneWay}" Content="Nuevo Turno" Name="NewTurn" LargeGlyph="{dx:DXImage Image=Appointment_32x32.png}" RibbonStyle="Large"/>
+            <dxb:BarButtonItem Command="" Content="Nuevo Turno Diario" x:Name="NewRepeatTurn" LargeGlyph="{dx:DXImage Image=RecurringAppointment_32x32.png}" RibbonStyle="Large"/>
+            <dxb:BarButtonItem Command="" Content="  Pacientes  " x:Name="Patients" RibbonStyle="Large" 
+                               LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Patient_Male.png"/>
+            <dxb:BarButtonItem Command="" Content="  Profecionales  " x:Name="Professionals" RibbonStyle="Large" 
+                               LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Doctor_Male.png"/>
+            <dxb:BarButtonItem Command="" Content="  Especialidades  " x:Name="Specialtys" RibbonStyle="Large" 
+                               LargeGlyph="{dx:DXImage Image=Project_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Ir a Hoy" RibbonStyle="Large" x:Name="Today"
+                                           LargeGlyph="{dx:DXImage Image=Today_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Acercar" RibbonStyle="Large" x:Name="ZoomIn"
+                                           LargeGlyph="{dx:DXImage Image=ZoomIn_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Alejar" RibbonStyle="Large" x:Name="ZoomOut" 
+                                           LargeGlyph="{dx:DXImage Image=ZoomOut_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Diaria" RibbonStyle="Large" x:Name="Daily"
+                                          LargeGlyph="{dx:DXImage Image=DayView_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Semana Laborable" RibbonStyle="Large" x:Name="WorkWeek"  
+                                          LargeGlyph="{dx:DXImage Image=WorkWeekView_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Semana Completa" RibbonStyle="Large" x:Name="Week" 
+                                          LargeGlyph="{dx:DXImage Image=WeekView_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Mensual" RibbonStyle="Large" x:Name="Month"
+                                          LargeGlyph="{dx:DXImage Image=MonthView_32x32.png}"/>
+            <dxsch:TimeScaleBarSubItem Content="Escala de Tiempo" RibbonStyle="Large" x:Name="TimeScale"
+                                          LargeGlyph="{dx:DXImage Image=SwitchTimeScalesTo_32x32.png}"/>
+        </dxb:BarManager.Items>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--Modal con pregunta de Cierre de Ventana -->
-        <materialDesign:DialogHost IsOpen="False" x:Name="cierre" Grid.RowSpan="3">
-            <materialDesign:DialogHost.DialogContent>
-                <StackPanel Margin="15" Orientation="Vertical">
-                    <TextBlock Text="Seguro Desea cerrar la aplicacion ?" FontSize="23"/>
-                    <Button Click="ShutDown" 
+            <!--Border inicial de la Aplication con Minimizador y Cierre -->
+            <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:ColorZone Mode="Dark" Grid.ColumnSpan="2">
+                        <StackPanel HorizontalAlignment="Right">
+                            <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="0" 
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" CommandTarget="{Binding ElementName=cierre}">
+                                <materialDesign:PackIcon Kind="WindowClose"/>
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                    <materialDesign:ColorZone Mode="Dark" Grid.ColumnSpan="1" Margin="0 0 5 0">
+                        <StackPanel HorizontalAlignment="Right">
+                            <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="0" Click="MinimizeWindow">
+                                <materialDesign:PackIcon Kind="WindowMinimize"/>
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                </Grid>
+            </Border>
+            <dx:DXDockPanel Grid.Row="1" DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+                <!--Banner Menu principal -->
+                <dxr:RibbonControl Height="150" Grid.Row="1" MinimizationButtonVisibility="Collapsed" PageCategoryAlignment="Left" RibbonStyle="Office2010" ShowApplicationButton="False">
+                    <dxr:RibbonDefaultPageCategory Caption="defaultCategory">
+                        <dxr:RibbonPage Caption="Menu Principal">
+                            <dxr:RibbonPageGroup Caption="Turnos">
+                                <dxb:BarButtonItemLink BarItemName="NewTurn"/>
+                                <!--<dxb:BarButtonItem Command="{Binding NewTurnCommand}" Content="Nuevo Turno" x:Name="NewTurn"
+                                                   LargeGlyph="{dx:DXImage Image=Appointment_32x32.png}" RibbonStyle="Large"/> -->
+                                <dxb:BarButtonItemLink BarItemName="NewRepeatTurn"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Administracion">
+                                <dxb:BarButtonItemLink BarItemName="Patients"/>
+                                <dxb:BarButtonItemLink BarItemName="Professionals"/>
+                                <dxb:BarButtonItemLink BarItemName="Specialtys"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Herramientas">
+                                <!--Exportar, imprimir y etc-->
+                            </dxr:RibbonPageGroup>
+
+                            <!--VER TEMA FILTROS -->
+                            <dxr:RibbonPageGroup Caption="Filtros"/>
+                        </dxr:RibbonPage>
+                        <dxr:RibbonPage Caption="Vistas">
+                            <dxr:RibbonPageGroup Caption="Navegador">
+                                <dxb:BarButtonItemLink BarItemName="Today"/>
+                                <dxb:BarButtonItemLink BarItemName="ZoomIn"/>
+                                <dxb:BarButtonItemLink BarItemName="ZoomOut"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Organizar">
+                                <dxb:BarButtonItemLink BarItemName="Daily"/>
+                                <dxb:BarButtonItemLink BarItemName="WorkWeek"/>
+                                <dxb:BarButtonItemLink BarItemName="Week"/>
+                                <dxb:BarButtonItemLink BarItemName="Month"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Escala de Tiempo">
+                                <dxb:BarSubItemLink BarItemName="TimeScale"/>
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+            </dx:DXDockPanel>
+            <dxd:DockLayoutManager x:Name="dockLayoutManager" Grid.Row="2">
+
+                <!--Vista principal y Calendario-->
+                <dxd:LayoutGroup Grid.Row="2">
+                    <!-- Panel Izquierdo de Opciones-->
+                    <dxd:LayoutPanel ItemWidth="120" Caption="Navigation" ShowCaption="False" ShowBorder="False" Background="Transparent">
+                        <dxnb:NavBarControl x:Name="navBarControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1">
+                            <dxnb:NavBarGroup Header="Grupos" DisplayMode="Default">
+                                <dxnb:NavBarItem Content="Item1" />
+                                <dxnb:NavBarItem Content="Item2" />
+                                <!--ImageSource="Images/Icons/Item.png"-->
+                            </dxnb:NavBarGroup>
+                        </dxnb:NavBarControl>
+                    </dxd:LayoutPanel>
+                    <!-- Panel central-->
+                    <dxd:LayoutGroup Orientation="Vertical" ItemWidth="4*">
+                        <dxd:LayoutPanel Caption="Calendario de Turnos" ItemHeight="3*">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <!-- Calendario de Turnos -->
+                                <dxsch:SchedulerControl x:Name="schedulerControl" VerticalAlignment="Stretch" 
+                                                    BarManager="{Binding Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type dxb:BarManager}}}" 
+                                                    Ribbon="{Binding ElementName=ribbonControl, Mode=OneTime}">
+                                    <dxsch:SchedulerControl.FullWeekView>
+                                        <dxsch:FullWeekView Enabled="True"/>
+                                    </dxsch:SchedulerControl.FullWeekView>
+                                    <dxsch:SchedulerControl.WeekView>
+                                        <dxsch:WeekView Enabled="False"/>
+                                    </dxsch:SchedulerControl.WeekView>
+                                </dxsch:SchedulerControl>
+                                <!--CALENDARIO Derecho -->
+                                <Border BorderThickness="1,1,1,1" BorderBrush="Black" Grid.Column="1">
+                                    <dxe:DateNavigator VerticalAlignment="Stretch" x:Name="dateNavigator">
+                                        <dxe:DateNavigator.StyleSettings>
+                                            <dxsch:SchedulerDateNavigatorStyleSettings SchedulerControl="{Binding ElementName=schedulerControl}"/>
+                                        </dxe:DateNavigator.StyleSettings>
+                                    </dxe:DateNavigator>
+                                </Border>
+                            </Grid>
+                        </dxd:LayoutPanel>
+                    </dxd:LayoutGroup>
+                </dxd:LayoutGroup>
+
+            </dxd:DockLayoutManager>
+            <!-- </dx:DXDockPanel> -->
+
+            <!--Modal con pregunta de Cierre de Ventana -->
+            <materialDesign:DialogHost IsOpen="False" x:Name="cierre" Grid.RowSpan="3">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Margin="15" Orientation="Vertical">
+                        <TextBlock Text="Seguro Desea cerrar la aplicacion ?" FontSize="23"/>
+                        <Button Click="ShutDown" 
                             Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="Salir" Margin="0 30 0 0"/>
-                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandTarget="{Binding ElementName=cierre}"
+                        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandTarget="{Binding ElementName=cierre}"
                         Style="{DynamicResource MaterialDesignRaisedButton}" Content="Cancelar" Margin="0 30 0 0"/>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent>
-        </materialDesign:DialogHost>
-    </Grid>
-</Window>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+        </Grid>
+    </dxb:BarManager>
+</dxr:DXRibbonWindow>

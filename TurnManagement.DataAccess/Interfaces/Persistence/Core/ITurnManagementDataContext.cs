@@ -6,8 +6,8 @@ namespace TurnManagement.DataAccess.Interfaces.Persistence.Core
 {
     public interface ITurnManagementDataContext : IQuerableDataContext, IDisposable
     {
-        IDbSet<Professional> Professionals{ get; set; }
-        IDbSet<Patient> Patients { get; set; }
+        IDbSet<Professional> Professional{ get; set; }
+        IDbSet<Patient> Patient { get; set; }
         IDbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

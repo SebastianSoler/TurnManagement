@@ -18,25 +18,6 @@
         
         #endregion
 
-        #region Person Messages
-
-        public const string EmptySocialReason = "La razón social no puede ser vacía";
-        public const string DuplicatedDni = "Ya existe un registro con el DNI indicado";
-        public const string DuplicatedPassport = "Ya existe un registro con el Pasaporte indicado";
-        public const string DuplicatedSocialReason = "Ya existe un registro con la razón social indicada";
-        public const string DuplicatedCuit = "Ya existe un registro con la CUIT indicada";
-        public const string InvalidCuit = "Cuit Inválida";
-        public const string EmptyPersonIds = "La persona debe tener al menos un campo Identificador (Dni/Pasaporte/Cuit)";
-        public const string EmptyPersonType = "El tipo de persona no puede ser vacío";
-        public const string EmptyCuit = "La Cuit no puede ser vacía";
-        public const string EmptyDni = "El Dni no puede ser vacío";
-        public const string EmptyFiscalCondition = "La condición fiscal no puede ser vacía";
-        public const string EmptyPersonRol = "La entidad debe tener al menos un Rol";
-        public const string InvalidPersonTypeVsCuit = "El tipo de persona no es consistente con el Cuit";
-        public const string InvalidCantValue = "La variable cant debe tener un valor";
-
-        #endregion
-
         #region Account Messages
 
         public const string EmptyUserId = "El Id de usuario no puede ser vacío";

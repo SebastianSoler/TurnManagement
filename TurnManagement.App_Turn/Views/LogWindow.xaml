@@ -16,7 +16,7 @@
         Title="Login Inicial"
         Height="400" Width="400"
         WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
-        DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}" 
+        DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
         FocusManager.FocusedElement="{Binding ElementName=txtUser}">
     <Grid>
         <Grid.RowDefinitions>
@@ -71,15 +71,5 @@
                 </materialDesign:Card>
             </StackPanel>
         </Grid>
-
-        <!--<materialDesign:DialogHost IsOpen="{Binding Path=IsLog}" x:Name="logueo" Grid.RowSpan="3">
-            <materialDesign:DialogHost.DialogContent>
-                <StackPanel Margin="15" Orientation="Vertical">
-                    <TextBlock Text="{Binding StatusMessage}"/>
-                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandTarget="{Binding ElementName=logueo}"
-                        Style="{DynamicResource MaterialDesignFlatButton}" Content="Aceptar" Margin="0 10 0 0"/>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent> 
-        </materialDesign:DialogHost>-->
     </Grid>
 </Window>

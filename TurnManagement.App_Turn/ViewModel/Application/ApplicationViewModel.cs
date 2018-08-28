@@ -1,4 +1,6 @@
-﻿using TurnManagement.App_Turn.ViewModel.Base;
+﻿using System;
+using System.Threading.Tasks;
+using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.CrossCutting.Enumerations;
 
 namespace TurnManagement.App_Turn.ViewModel.Application
@@ -24,19 +26,41 @@ namespace TurnManagement.App_Turn.ViewModel.Application
         public BaseViewModel CurrentPageViewModel { get; set; }
 
         #endregion
+        
+        /// <summary>
+        /// Handles what happens when we have successfully logged in
+        /// </summary>
+        public void HandleSuccessfulLogin()
+        {
+            // Go to Main page
+            DI.DI.ViewModelApplication.SetCurrentPage(ApplicationPage.Main);
+        }
 
         /// <summary>
-        /// Navigates to the specified page
+        /// Navigates to the Main page
         /// </summary>
         /// <param name="page">The page to go to</param>
         /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
-        public void SetCurrentPage(ApplicationPage page, BaseViewModel viewModel = null)
+        public async Task ShowModalPage(ApplicationPage page, BaseViewModel baseViewModel)
+        {                    
+            // Set the view model
+            CurrentPageViewModel = baseViewModel;
+            // Set the current page
+            CurrentPage = page;
+
+            //Lanzo la apertura del nuevo Modal
+            await DI.DI.UI.ShowModalPage(page, baseViewModel);
+        }
+
+        /// <summary>
+        /// Navigates to the Main page
+        /// </summary>
+        /// <param name="page">The page to go to</param>
+        /// <param name="viewModel">The view model, if any, to set explicitly to the new page</param>
+        private void SetCurrentPage(ApplicationPage page, BaseViewModel viewModel = null)
         {
             // Set the view model
             CurrentPageViewModel = viewModel;
-
-            // See if page has changed
-            var different = CurrentPage != page;
 
             // Set the current page
             CurrentPage = page;
@@ -46,15 +70,6 @@ namespace TurnManagement.App_Turn.ViewModel.Application
 
             DI.DI.UI.ShowPage(mainVM);
 
-        }
-
-        /// <summary>
-        /// Handles what happens when we have successfully logged in
-        /// </summary>
-        public void HandleSuccessfulLogin()
-        {
-            // Go to Main page
-            DI.DI.ViewModelApplication.SetCurrentPage(ApplicationPage.Main);
         }
     }
 }

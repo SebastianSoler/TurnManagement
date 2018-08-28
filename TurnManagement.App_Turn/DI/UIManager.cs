@@ -3,6 +3,7 @@ using TurnManagement.App_Turn.Controls;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.App_Turn.ViewModel.Dialogs;
 using TurnManagement.App_Turn.Views.Dialogs;
+using TurnManagement.CrossCutting.Enumerations;
 
 namespace TurnManagement.App_Turn.DI
 {
@@ -19,6 +20,16 @@ namespace TurnManagement.App_Turn.DI
         public Task ShowMessage(MessageBoxDialogViewModel viewModel)
         {
             return new DialogMessageBox().ShowDialog(viewModel);
+        }
+
+        /// <summary>
+        /// Displays some Modal Page
+        /// </summary>
+        /// <param name="viewModel">The view model</param>
+        /// <returns></returns>
+        public Task<bool> ShowModalPage(ApplicationPage page, BaseViewModel viewModel)
+        {
+            return new BaseWindowControl().ShowModalWindowPage(page, viewModel);
         }
 
         /// <summary>

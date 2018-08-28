@@ -74,7 +74,11 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Core\BaseService.cs" />
     <Compile Include="Interfaces\Core\IBaseService.cs" />
+    <Compile Include="Interfaces\Services\IPatientService.cs" />
+    <Compile Include="Interfaces\Services\IProfessionalService.cs" />
     <Compile Include="Interfaces\Services\IApplicationUserService.cs" />
+    <Compile Include="Services\PatientService.cs" />
+    <Compile Include="Services\ProfessionalService.cs" />
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -25,7 +25,7 @@ namespace TurnManagement.Domain.Entities
 
         public string Phone { get; set; }
 
-        public virtual IList<Specialty> Specialties { get; set; } = new List<Specialty>();
+        public virtual IList<Speciality> Specialties { get; set; } = new List<Speciality>();
 
         #endregion
     }
