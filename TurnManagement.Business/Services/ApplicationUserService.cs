@@ -18,9 +18,11 @@ namespace TurnManagement.Business.Services
 
             BusinessValidations(user);
 
+            var todo = baseRepository.GetAll(false).ToList();
+
             resultLog = baseRepository.GetAll(false).ToList()
                                       .Any(x => !x.IsDeleted &&
-                                                 x.UserName.Equals(user.UserName.ToLower()) && 
+                                                 x.UserName.Equals(user.UserName) && 
                                                  x.Password.Equals(user.Password));
 
             return resultLog;

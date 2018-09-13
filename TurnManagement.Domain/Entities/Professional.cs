@@ -9,7 +9,7 @@ namespace TurnManagement.Domain.Entities
 
         public string Name { get; set; }
 
-        public string SurName{ get; set; }
+        public string SurnName { get; set; }
 
         public string Dni { get; set; }
 
@@ -20,6 +20,8 @@ namespace TurnManagement.Domain.Entities
         public DateTime DateOfBirth { get; set; }
 
         public string  Address { get; set; }
+
+        public string Email { get; set; }
 
         public string CellPhone { get; set; }
 

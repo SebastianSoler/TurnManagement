@@ -50,6 +50,10 @@
     <Reference Include="DevExpress.Xpf.NavBar.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Ribbon.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Scheduler.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Themes.Office2016White.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Dna.Framework, Version=1.0.7.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dna.Framework.1.0.7.6\lib\netstandard2.0\Dna.Framework.dll</HintPath>
@@ -205,8 +209,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Turns\NewTurnView.xaml.cs">
-      <DependentUpon>NewTurnView.xaml</DependentUpon>
+    <Compile Include="Views\Manager\SpecialitiesManagerView.xaml.cs">
+      <DependentUpon>SpecialitiesManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manager\ProfessionalsManagerView.xaml.cs">
+      <DependentUpon>ProfessionalsManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manager\PatientsManagerView.xaml.cs">
+      <DependentUpon>PatientsManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Turns\TurnView.xaml.cs">
+      <DependentUpon>TurnView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Dialogs\DialogMessageBox.xaml">
       <SubType>Designer</SubType>
@@ -267,7 +280,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Turns\NewTurnView.xaml">
+    <Page Include="Views\Manager\SpecialitiesManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Manager\ProfessionalsManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Manager\PatientsManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Turns\TurnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,9 +345,7 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Manager\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Doctor_Male.png" />
     <Resource Include="Images\Patient_Male.png" />

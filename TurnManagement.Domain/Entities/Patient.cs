@@ -29,6 +29,8 @@ namespace TurnManagement.Domain.Entities
 
         public string Phone { get; set; }
 
+        public string Note { get; set; }
+
         public virtual IList<Turn> Turns { get; set; } = new List<Turn>();
 
         #endregion

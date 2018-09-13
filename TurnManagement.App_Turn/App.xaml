@@ -4,8 +4,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm1="clr-namespace:TurnManagement.App_Turn"
-             d1p1:Ignorable="d" StartupUri="Views/LogWindow.xaml">
-  <Application.Resources>
+             d1p1:Ignorable="d" 
+             StartupUri="Views/MainWindow.xaml">
+             <!--StartupUri="Views/LogWindow.xaml"> -->
+    <Application.Resources>
     <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         
         <vm1:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />

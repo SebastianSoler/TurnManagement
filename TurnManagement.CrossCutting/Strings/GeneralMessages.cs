@@ -10,5 +10,8 @@
         public const string InitApp = "Inicio del Sistema";
         public const string InfoContact = "Información de Contacto";
         public const string NewTurnTitle = "Ingreso Nuevo Turno";
+        public const string PatientsManagerTittle = "Gestion de Pacientes";
+        public const string ProfessionalsManagerTittle = "Gestion de Profesionales";
+        public const string SpecialitiesManagerTittle = "Gestion de Especialidades";
     }
 }

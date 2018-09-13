@@ -58,15 +58,26 @@
     <Compile Include="Interfaces\Persistence\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IPatientRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IProfessionalRepository.cs" />
+    <Compile Include="Interfaces\Persistence\Repositories\ISpecialityRepository.cs" />
+    <Compile Include="Migrations\201809112259086_InitialCreate.cs" />
+    <Compile Include="Migrations\201809112259086_InitialCreate.Designer.cs">
+      <DependentUpon>201809112259086_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Initializers\SpecialityDataInitializer.cs" />
+    <Compile Include="Migrations\Initializers\ApplicationUserDataInitializer.cs" />
+    <Compile Include="Migrations\Initializers\BaseInitializer.cs" />
     <Compile Include="Persistence\Core\BaseRepository.cs" />
     <Compile Include="Persistence\Core\TurnManagementDataContext.cs" />
     <Compile Include="Persistence\EntityConfiguration\ApplicationUserConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\BaseEntityConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfiguration\SpecialityConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\PatientConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\ProfessionalConfiguration.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Persistence\Repositories\PatientRepository.cs" />
     <Compile Include="Persistence\Repositories\ProfessionalRepository.cs" />
+    <Compile Include="Persistence\Repositories\SpecialityRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -113,6 +124,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809112259086_InitialCreate.resx">
+      <DependentUpon>201809112259086_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,18 +7,19 @@
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxd="http://schemas.devexpress.com/winfx/2008/xaml/docking"
-    x:Class="TurnManagement.App_Turn.Views.Turns.NewTurnView"
+    x:Class="TurnManagement.App_Turn.Views.Turns.TurnView"
     
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
     TextElement.FontSize="15"
     FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    
     Title="Registro de Turnos" 
-    Height="450" Width="600" ResizeMode="NoResize"
-    WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
-    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" Icon="{dx:DXImage Image=Add_32x32.png}">
-
+    Height="500" Width="700" ResizeMode="NoResize"
+    WindowStyle="None" WindowStartupLocation="CenterScreen"
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" 
+    Icon="{dx:DXImage Image=Add_32x32.png}">
     <Grid>
         <dxb:BarManager>
             <dxb:BarManager.Items>
@@ -36,7 +37,7 @@
                 <!--Banner Menu principal-->
                 <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2010" ShowApplicationButton="False">
                     <dxr:RibbonDefaultPageCategory>
-                        <dxr:RibbonPage Caption="Nuevo Turno">
+                        <dxr:RibbonPage Caption="Turno">
                             <dxr:RibbonPageGroup Caption="Acciones">
                                 <dxb:BarButtonItemLink BarItemName="SaveTurn"/>
                                 <dxb:BarButtonItemLink BarItemName="Exit"/>
@@ -50,20 +51,38 @@
                 <dxd:DockLayoutManager x:Name="dockLayoutManager" Grid.Row="1">
                     <!--Vista principal y Calendario-->
                     <dxd:LayoutGroup Grid.Row="1">
-                        <dxd:LayoutPanel ItemWidth="200" Caption="Pacientes" ShowBorder="True" Background="Transparent">
+                        <!--Listado de Pacientes -->
+                        <dxd:LayoutPanel ItemWidth="280" Caption="Pacientes" ShowBorder="True" Background="Transparent">
                             <Grid>
-                                <!--<DataGrid Margin="5 5 5 5" ItemsSource="{Binding PatientList}"/> -->
-                                <ListView Margin="5 5 5 5" ItemsSource="{Binding PatientList}"/>
-
+                                <ListView Margin="5 5 5 5" ItemsSource="{Binding PatientList}" ToolTip="Doble Click para Seleccionar">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Name}"/>
+                                            <GridViewColumn Header="Apellido" DisplayMemberBinding="{Binding SurnName}"/>
+                                            <GridViewColumn Header="Dni" DisplayMemberBinding="{Binding Dni}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
                             </Grid>
                         </dxd:LayoutPanel>
-
+                        <!--Informacion del Nuevo Turno -->
                         <dxd:LayoutPanel Caption="Informacion del Turno" CaptionHorizontalAlignment="Center" ItemHeight="3*">
-                            <Grid>
-                                <!--<StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Left">
-                                    <Label Content="Profecional" Foreground="{Binding ElementName=cBoxProfessional, Path=BorderBrush}" />
-                                    <ComboBox Name="cBoxProfessional"/>
-                                </StackPanel> -->
+                            <Grid HorizontalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <Label Content="Profecional  " VerticalAlignment="Center" Focusable="False"/>
+                                    <ComboBox Grid.Row="0" Name="cBoxProfessional" Width="210" SelectedValuePath="Id" Text="Seleccione"
+                                              ItemsSource="{Binding ProfessionalList}" DisplayMemberPath="SurName" IsReadOnly="True"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10 0 0">
+                                    <Label Content="Especialidad" VerticalAlignment="Center" Focusable="False"/>
+                                    <ComboBox Grid.Row="1" Name="cBoxEspecialidad" Width="210" Text="Seleccione" IsEditable="True" 
+                                              IsReadOnly="True" ItemsSource="{Binding SpecialityList}" DisplayMemberPath="Name"/>
+                                </StackPanel>
                             </Grid>
                         </dxd:LayoutPanel>
                     </dxd:LayoutGroup>

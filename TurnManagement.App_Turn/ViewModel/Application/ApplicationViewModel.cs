@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.CrossCutting.Enumerations;
 

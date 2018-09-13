@@ -21,13 +21,21 @@ namespace TurnManagement.DataAccess.Persistence.Core
         public virtual IDbSet<Professional> Professional { get; set; }
         public virtual IDbSet<Patient> Patient { get; set; }
         public virtual IDbSet<ApplicationUser> ApplicationUser { get; set; }
+        public virtual IDbSet<Speciality> Speciality { get; set; }
 
         public TurnManagementDataContext(): base(connectionString)
         {
             Configuration.ProxyCreationEnabled = true;
             Configuration.LazyLoadingEnabled = true;
 
-            Database.SetInitializer<TurnManagementDataContext>(null);
+            if (bool.Parse(ConfigurationManager.AppSettings["AutomaticMigrationsEnabled"]))
+            {
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<TurnManagementDataContext, Migrations.Configuration>());
+            }
+            else
+            {
+                Database.SetInitializer<TurnManagementDataContext>(null);
+            }
 
             ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 120;
         }
@@ -43,7 +51,7 @@ namespace TurnManagement.DataAccess.Persistence.Core
             modelBuilder.Configurations.Add(new ProfessionalConfiguration());
             modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
             modelBuilder.Configurations.Add(new PatientConfiguration());
-
+            modelBuilder.Configurations.Add(new SpecialityConfiguration());
         }
 
         public int SaveChanges(string loggedUser)

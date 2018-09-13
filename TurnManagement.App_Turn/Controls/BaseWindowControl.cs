@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.App_Turn.Views;
+using TurnManagement.App_Turn.Views.Manager;
 using TurnManagement.App_Turn.Views.Turns;
 using TurnManagement.CrossCutting.Enumerations;
 
@@ -10,7 +11,7 @@ namespace TurnManagement.App_Turn.Controls
 {
     public class BaseWindowControl : Window
     {
-        #region Private Members
+        #region Private Windows Members
 
         /// <summary>
         /// The window we will be contained within
@@ -18,9 +19,24 @@ namespace TurnManagement.App_Turn.Controls
         private MainWindow mainWindow;
 
         /// <summary>
-        /// The window 
+        /// The window for New Turns
         /// </summary>
-        private NewTurnView newTurnWindow;
+        private TurnView turnWindow;
+
+        /// <summary>
+        /// The window for Patients Manager
+        /// </summary>
+        private PatientsManagerView patientsWindow;
+
+        /// <summary>
+        /// The window for Patients Manager
+        /// </summary>
+        private ProfessionalsManagerView professionalsWindow;
+
+        /// <summary>
+        /// The window for Patients Manager
+        /// </summary>
+        private SpecialitiesManagerView specialitiesWindow;
 
         #endregion
 
@@ -30,7 +46,6 @@ namespace TurnManagement.App_Turn.Controls
         public BaseWindowControl()
         {
             mainWindow = new MainWindow();
-            newTurnWindow = new NewTurnView();
         }
 
         #region Public Dialog Show Methods
@@ -89,13 +104,32 @@ namespace TurnManagement.App_Turn.Controls
                     {
                         case ApplicationPage.Turns:
                             //Instancio mi nueva ventana
-                            newTurnWindow = new NewTurnView();
-                            newTurnWindow.DataContext = viewModel;
-                            newTurnWindow.Owner = Application.Current.MainWindow;
-
+                            turnWindow = new TurnView();
+                            turnWindow.DataContext = viewModel;
+                            turnWindow.Owner = Application.Current.MainWindow;
                             // Show dialog
-                            newTurnWindow.ShowDialog();
-
+                            turnWindow.ShowDialog();
+                            break;
+                        case ApplicationPage.Patients:
+                            patientsWindow = new PatientsManagerView();
+                            patientsWindow.DataContext = viewModel;
+                            patientsWindow.Owner = Application.Current.MainWindow;
+                            // Show dialog
+                            patientsWindow.ShowDialog();
+                            break;
+                        case ApplicationPage.Professionals:
+                            professionalsWindow = new ProfessionalsManagerView();
+                            professionalsWindow.DataContext = viewModel;
+                            professionalsWindow.Owner = Application.Current.MainWindow;
+                            // Show dialog
+                            professionalsWindow.ShowDialog();
+                            break;
+                        case ApplicationPage.Specialitys:
+                            specialitiesWindow = new SpecialitiesManagerView();
+                            specialitiesWindow.DataContext = viewModel;
+                            specialitiesWindow.Owner = Application.Current.MainWindow;
+                            // Show dialog
+                            specialitiesWindow.ShowDialog();
                             break;
                         default:
                             break;

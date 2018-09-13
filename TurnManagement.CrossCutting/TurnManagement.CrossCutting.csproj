@@ -97,6 +97,8 @@
     <Compile Include="Strings\TagNames.cs" />
     <Compile Include="Strings\ValidationMessages.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
