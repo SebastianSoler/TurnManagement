@@ -26,15 +26,44 @@ namespace TurnManagement.App_Turn.ViewModel
 
         private readonly ISpecialityService specialityService;
 
+        //Private Collections
+        private IEnumerable<Speciality> _specialityList;
+        private IEnumerable<Patient> _patientList;
+        private IEnumerable<Professional> _professionalList;
+
         #endregion
 
         #region Public Properties COLLECTIONS
 
-        public IEnumerable<Patient> PatientList { get; private set; } = new List<Patient>();
+        public IEnumerable<Patient> PatientList
+        {
+            get { return _patientList; }
+            private set
+            {
+                _patientList = value;
+                base.RaisePropertyChanged("PatientList");
+            }
+        }
 
-        public IEnumerable<Professional> ProfessionalList { get; private set; } = new List<Professional>();
+        public IEnumerable<Professional> ProfessionalList 
+        {
+            get { return _professionalList; }
+            private set
+            {
+                _professionalList = value;
+                base.RaisePropertyChanged("ProfessionalList");
+            }
+        }
 
-        public IEnumerable<Speciality> SpecialityList { get; private set; } = new List<Speciality>();
+        public IEnumerable<Speciality> SpecialityList 
+        {
+            get { return _specialityList; }
+            private set
+            {
+                _specialityList = value;
+                base.RaisePropertyChanged("SpecialityList");
+            }
+        }
 
         public IEnumerable<string> HealtInsuranceList { get; private set; } = new List<string>() { "IOMA", "OSDE", "ART" };
 
@@ -46,10 +75,13 @@ namespace TurnManagement.App_Turn.ViewModel
 
         public string ProfessionalFilter { get; set; }
 
-        public string NewSpecialityName { get; set; } = string.Empty;
+        public string NewSpecialityName { get;set; }
+
+        public string txtSpecialitySearch { get; set; }
+
+        public Speciality SelectedSpecialityItem { get; set; } = null;
 
         #endregion
-
 
         #region COMMANDS
 
@@ -68,6 +100,12 @@ namespace TurnManagement.App_Turn.ViewModel
         public RelayCommand Filter { get; set; }
 
         public RelayCommand AddNewSpecialityRC { get; set; }
+
+        public RelayCommand AddNewPatientRC { get; set; }
+
+        public RelayCommand DeleteSpecialityRC { get; set; }
+
+        public RelayCommand ModifySpecialityRC { get; set; }
 
         #endregion
 
@@ -98,7 +136,10 @@ namespace TurnManagement.App_Turn.ViewModel
             Filter = new RelayCommand(execute: () => ApplyFilter(ProfessionalFilter));
 
             //Actions Commands
-            AddNewSpecialityRC = new RelayCommand(execute: () => AddNewSpeciality(NewSpecialityName));
+            AddNewSpecialityRC = new RelayCommand(execute: () => AddNewSpeciality());
+            AddNewPatientRC = new RelayCommand(execute: () => AddNewPatient());
+            DeleteSpecialityRC = new RelayCommand(execute: () => DeleteSpeciality());
+            ModifySpecialityRC = new RelayCommand(execute: () => ModifySpecialityAsync());
         }
 
         private void InitializerDataList()
@@ -170,19 +211,78 @@ namespace TurnManagement.App_Turn.ViewModel
 
         #region ACTION COMMANDS
 
-        private void AddNewSpeciality(string newSpecialityName)
+        private void AddNewSpeciality()
         {
-            if(newSpecialityName != null && !string.IsNullOrWhiteSpace(newSpecialityName))
+            try
             {
-                var newSpeciality = new Speciality() { Name = newSpecialityName };
+                var newSpeciality = new Speciality() { Name = NewSpecialityName };
 
                 specialityService.Add(newSpeciality);
-            }
-            else
-            {
-                //Message Error con campo invalido
-            }
 
+                SpecialityList = specialityService.GetAll();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void DeleteSpeciality()
+        {
+            try
+            {
+                if (SelectedSpecialityItem != null)
+                {
+                    var specialityId = SelectedSpecialityItem.Id;
+                    
+                    var bodyMessage = string.Format(ValidationMessages.ConfirmDeleteSpeciality, SelectedSpecialityItem.Name);
+
+                    var result = MessageBox.Show(bodyMessage, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.OK);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        specialityService.Delete(specialityId);
+
+                        SpecialityList = specialityService.GetAll();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private async void ModifySpecialityAsync()
+        {
+            try
+            {
+                if(SelectedSpecialityItem != null)
+                {
+                    var oldName = SelectedSpecialityItem.Name;
+
+                    var inputBoxViewModel = new Dialogs.InputDialogBoxViewModel(oldName);
+
+                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.inputDialogBox, inputBoxViewModel);
+
+                    if (!string.IsNullOrWhiteSpace(inputBoxViewModel.NewSpecialityName))
+                    {
+                        SelectedSpecialityItem.Name = inputBoxViewModel.NewSpecialityName;
+
+                        specialityService.Update(SelectedSpecialityItem);
+
+                        SpecialityList = specialityService.GetAll();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void AddNewPatient()
+        {
             
         }
 

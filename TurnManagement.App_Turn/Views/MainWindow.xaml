@@ -24,7 +24,7 @@
         Title="Sistema de Turnos" 
         Height="800" Width="1280"
         MinHeight="600" MinWidth="1024"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen" 
         UseLayoutRounding="True" 
@@ -37,23 +37,27 @@
         <dxb:BarManager.Items>
             <!--Botones Menu Principal -->
             <dxb:BarButtonItem Command="{Binding Path=NewTurnCommand}" Content="Nuevo Turno" Name="NewTurn" LargeGlyph="{dx:DXImage Image=Appointment_32x32.png}" RibbonStyle="Large"/>
-            <dxb:BarButtonItem Command="" Content="Nuevo Turno Diario" x:Name="NewRepeatTurn" LargeGlyph="{dx:DXImage Image=RecurringAppointment_32x32.png}" RibbonStyle="Large"/>
+            <dxb:BarButtonItem Command="{Binding Path=NewTurnCommand}" Content="Nuevo Turno Diario" x:Name="NewRepeatTurn" LargeGlyph="{dx:DXImage Image=RecurringAppointment_32x32.png}" RibbonStyle="Large"/>
             <dxb:BarButtonItem Command="{Binding Path=Patients}" Content="Gestionar Pacientes" Name="Patients" RibbonStyle="Large" LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Patient_Male.png"/>
-            <dxb:BarButtonItem Command="{Binding Path=Professionals}" Content="Gestionar Profecionales" x:Name="Professionals" RibbonStyle="Large" LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Doctor_Male.png"/>
+            <dxb:BarButtonItem Command="{Binding Path=Professionals}" Content="Gestionar Profesionales" x:Name="Professionals" RibbonStyle="Large" LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Doctor_Male.png"/>
             <dxb:BarButtonItem Command="{Binding Path=Specialitys}" Content="Gestionar Especialidades" x:Name="Specialtys" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Project_32x32.png}"/>
-            <dxb:BarButtonItem Command="{Binding Path=Filter}" Content="Filtrar" RibbonStyle="Large" x:Name="Filter" LargeGlyph="{dx:DXImage Image=MasterFilter_32x32.png}" />
+            <dxb:BarButtonItem Command="{Binding Path=}" Content="Imprimir Calendario" x:Name="printCalentar" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
+            <dxb:BarButtonItem Command="{Binding Path=}" Content="Exportar a PDF" x:Name="exportPdf" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
+            <dxb:BarButtonItem Command="{Binding Path=Filter}" Content="Aplicar Filtro" RibbonStyle="Large" x:Name="Filter" LargeGlyph="{dx:DXImage Image=MasterFilter_32x32.png}" />
+            <dxb:BarButtonItem Command="{Binding Path=ClearFilter}" Content="Limpiar Filtros" RibbonStyle="Large" x:Name="ClearFilter" LargeGlyph="{dx:DXImage Image=IgnoreMasterFilter_32x32.png}" Glyph="{dx:DXImage Image=IgnoreMasterFilter_16x16.png}" />
             <dxb:BarEditItem x:Name="ProfessionalFilterList" ToolTip="Filtrar por Profesional" BarItemDisplayMode="ContentAndGlyph" 
-                             Glyph="{dx:DXImage Image=BOPerson_16x16.png}" EditHeight="30" EditWidth="150">
+                             Glyph="{dx:DXImage Image=BOPerson_16x16.png}" EditHeight="30" EditWidth="200">
                 <dxb:BarEditItem.EditSettings>
                     <dxe:ComboBoxEditSettings NullText="Profesional" ItemsSource="{Binding ProfessionalList}" DisplayMember="SurnName" ValueMember="Id"/>
                 </dxb:BarEditItem.EditSettings>
             </dxb:BarEditItem>
             <dxb:BarEditItem x:Name="SpecialityFilterList" ToolTip="Filtrar por Especialidad" BarItemDisplayMode="ContentAndGlyph" 
-                             Glyph="{dx:DXImage Image=Project_16x16.png}" EditHeight="30" EditWidth="150" >
+                             Glyph="{dx:DXImage Image=Project_16x16.png}" EditHeight="30" EditWidth="200" >
                 <dxb:BarEditItem.EditSettings>
                     <dxe:ComboBoxEditSettings NullText="Especialidad" ItemsSource="{Binding SpecialityList}" DisplayMember="Name" ValueMember="Id"/>
                 </dxb:BarEditItem.EditSettings>
             </dxb:BarEditItem>
+            <dxb:BarItemSeparator Name="filterSeparator"/>
             <!--Botones Vistas -->
             <dxb:BarButtonItem Command="" Content="Ir a Hoy" RibbonStyle="Large" x:Name="Today" LargeGlyph="{dx:DXImage Image=Today_32x32.png}"/>
             <dxb:BarButtonItem Command="" Content="Acercar" RibbonStyle="Large" x:Name="ZoomIn" LargeGlyph="{dx:DXImage Image=ZoomIn_32x32.png}"/>
@@ -62,7 +66,7 @@
             <dxb:BarButtonItem Command="" Content="Semana Laborable" RibbonStyle="Large" x:Name="WorkWeek" LargeGlyph="{dx:DXImage Image=WorkWeekView_32x32.png}"/>
             <dxb:BarButtonItem Command="" Content="Semana Completa" RibbonStyle="Large" x:Name="Week" LargeGlyph="{dx:DXImage Image=WeekView_32x32.png}"/>
             <dxb:BarButtonItem Command="" Content="Mensual" RibbonStyle="Large" x:Name="Month" LargeGlyph="{dx:DXImage Image=MonthView_32x32.png}"/>
-            <dxsch:TimeScaleBarSubItem Content="Escala de Tiempo" RibbonStyle="Large" x:Name="TimeScale" LargeGlyph="{dx:DXImage Image=SwitchTimeScalesTo_32x32.png}"/>
+            <!--<dxsch:TimeScaleBarSubItem Content="Escala de Tiempo" RibbonStyle="Large" x:Name="TimeScale" LargeGlyph="{dx:DXImage Image=SwitchTimeScalesTo_32x32.png}"/> -->
         </dxb:BarManager.Items>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -71,7 +75,6 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
-                <!--Quito por el close de la barra -->
                 <RowDefinition Height="150" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -113,17 +116,18 @@
                                 <dxb:BarButtonItemLink BarItemName="Professionals"/>
                                 <dxb:BarButtonItemLink BarItemName="Specialtys"/>
                             </dxr:RibbonPageGroup>
-                            <dxr:RibbonPageGroup Caption="Herramientas">
-                                <!--Exportar, imprimir y etc-->
-                            </dxr:RibbonPageGroup>
-
                             <!--Filtros Calendario -->
                             <dxr:RibbonPageGroup Caption="Filtros">
                                 <dxb:BarEditItemLink BarItemName="ProfessionalFilterList"/>
                                 <dxb:BarEditItemLink BarItemName="SpecialityFilterList"/>
-                                <dxb:BarItemLinkSeparator/>
+                                <dxb:BarItemLinkSeparator BarItemName="filterSeparator"/>
                                 <dxb:BarButtonItemLink BarItemName="Filter"/>
-                                <dxb:BarItemLinkSeparator/>
+                                <dxb:BarButtonItemLink BarItemName="ClearFilter"/>
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Herramientas">
+                                <!--Exportar, imprimir y etc-->
+                                <dxb:BarButtonItemLink BarItemName="printCalentar"/>
+                                <dxb:BarButtonItemLink BarItemName="exportPdf"/>
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                         <!--Pestaña de Vistas -->
@@ -139,16 +143,16 @@
                                 <dxb:BarButtonItemLink BarItemName="Week"/>
                                 <dxb:BarButtonItemLink BarItemName="Month"/>
                             </dxr:RibbonPageGroup>
-                            <dxr:RibbonPageGroup Caption="Escala de Tiempo">
+                            <!--<dxr:RibbonPageGroup Caption="Escala de Tiempo">
                                 <dxb:BarSubItemLink BarItemName="TimeScale"/>
-                            </dxr:RibbonPageGroup>
+                            </dxr:RibbonPageGroup> -->
                         </dxr:RibbonPage>
                     </dxr:RibbonDefaultPageCategory>
                 </dxr:RibbonControl>
             </dx:DXDockPanel>
             <dxd:DockLayoutManager x:Name="dockLayoutManager" Grid.Row="2" Grid.ColumnSpan="2">
                 <!--Vista principal y Calendario-->
-                <dxd:LayoutGroup Grid.Row="2">
+                <dxd:LayoutGroup Grid.Row="2" ShowCloseButton="False">
                     <!-- Panel Izquierdo de Opciones-->
                     <dxd:LayoutPanel ItemWidth="120" Caption="Navigation" ShowCaption="False" ShowBorder="False" Background="Transparent">
                         <dxnb:NavBarControl x:Name="navBarControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1">
@@ -161,7 +165,7 @@
                     </dxd:LayoutPanel>
                     <!-- Panel central-->
                     <dxd:LayoutGroup Orientation="Vertical" ItemWidth="4*">
-                        <dxd:LayoutPanel Caption="Calendario de Turnos" ItemHeight="3*">
+                        <dxd:LayoutPanel Caption="Calendario de Turnos" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />

@@ -64,19 +64,25 @@ namespace TurnManagement.Business.Core
                 throw new BusinessException(ValidationMessages.UpdateItemIdValidation);
             }
 
-            ExecuteValidationsChecker(item);
+            //ExecuteValidationsChecker(item);
 
             baseRepository.Update(item);
         }
 
         public virtual void Delete(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                throw new BusinessException(ValidationMessages.DeleteItemIdValidation);
+            }
+
+            baseRepository.Delete(id);
         }
 
         // Se implementa en cada servicio para hacer las valicadiones correspondientes.
         protected virtual void BusinessValidations(TEntity item)
         {
+            entityValidationsMessages.Clear();
         }
 
         // Se implementa en cada servicio para hacer las valicadiones correspondientes.

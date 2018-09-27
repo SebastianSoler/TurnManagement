@@ -12,6 +12,8 @@
 
         Professionals = 4,
 
-        Specialitys = 5
+        Specialitys = 5,
+
+        inputDialogBox = 6
     }
 }

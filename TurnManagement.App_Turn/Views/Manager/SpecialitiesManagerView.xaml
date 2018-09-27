@@ -7,6 +7,7 @@
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxd="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     x:Class="TurnManagement.App_Turn.Views.Manager.SpecialitiesManagerView"
     
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -16,10 +17,10 @@
     FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     
     Title="Gestion de Especialidades" 
-    Height="450" Width="800" ResizeMode="NoResize"
+    Height="450" Width="800" ResizeMode="NoResize" BorderThickness="3" BorderBrush="BlueViolet"
     WindowStyle="None" WindowStartupLocation="CenterScreen"
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" 
-    Icon="{dx:DXImage Image=Project_32x32.png}">
+    Icon="{dx:DXImage Image=Project_32x32.png}" >
     <Grid>
         <dxb:BarManager>
             <dxb:BarManager.Items>
@@ -27,6 +28,14 @@
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=SaveAndClose_32x32.png}"/>
                 <dxb:BarButtonItem Command="" x:Name="Exit" Content="Salir"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Delete_32x32.png}"/>
+                <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
+                <dxb:BarEditItem Name="txtSpecialitySearch" EditWidth="250" EditHeight="30" Content="{Binding txtSpecialitySearch}">
+                    <dxb:BarEditItem.EditSettings>
+                        <dxe:TextEditSettings />
+                    </dxb:BarEditItem.EditSettings>
+                </dxb:BarEditItem>
+                <dxb:BarButtonItem Command="" x:Name="searchSpeciality" Content="Buscar"
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Find_32x32.png}"/>
             </dxb:BarManager.Items>
             <Grid>
                 <Grid.RowDefinitions>
@@ -41,7 +50,14 @@
                                 <dxb:BarButtonItemLink BarItemName="SaveTurn"/>
                                 <dxb:BarButtonItemLink BarItemName="Exit"/>
                             </dxr:RibbonPageGroup>
-                            <dxr:RibbonPageGroup Caption="Opciones"/>
+                            <dxr:RibbonPageGroup Caption="Herramientas">
+                                
+                            </dxr:RibbonPageGroup>
+                            <dxr:RibbonPageGroup Caption="Opciones">
+                                <dxb:BarItemLink BarItemName="lblSearch"/>
+                                <dxb:BarEditItemLink BarItemName="txtSpecialitySearch" />
+                                <dxb:BarButtonItemLink BarItemName="searchSpeciality" />
+                            </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                     </dxr:RibbonDefaultPageCategory>
                 </dxr:RibbonControl>
@@ -51,25 +67,30 @@
                     <!--Vista principal y Panel ingreso -->
                     <dxd:LayoutGroup Grid.Row="1">
                         <!--Panel Datos Especialidades -->
-                        <dxd:LayoutPanel ItemWidth="270" CaptionHorizontalAlignment="Center" Caption="Datos Especialidad" Background="Transparent">
+                        <dxd:LayoutPanel ItemWidth="270" CaptionHorizontalAlignment="Center" Caption="Datos Especialidad" Background="Transparent"
+                                         ShowCloseButton="False" ShowPinButton="False">
                             <Grid HorizontalAlignment="Center">
                                 <StackPanel Orientation="Vertical" CanVerticallyScroll="True" Height="auto">
                                     <TextBox x:Name="txtSpecialityName" Width="220" materialDesign:HintAssist.Hint="Nombre Especialidad"
-                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0"/>
-                                    <Button x:Name="btnAgregar" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="AGREGAR" Width="120" 
-                                            Command="{Binding AddNewSpeciality}" HorizontalAlignment="Center" IsDefault="True" Margin="0 30"/>
+                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 20 0 0" GotFocus="txtSpecialityName_GotFocus"
+                                             Text="{Binding NewSpecialityName, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+                                    <Button x:Name="btnGuardar" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="INGRESAR" Width="120" LostFocus="PostAddSpeciality_LostFocus"
+                                            Command="{Binding AddNewSpecialityRC}" HorizontalAlignment="Center" IsDefault="True" Margin="0 30" />
+                                    <Button x:Name="btnModificar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="MODIFICAR" Width="120" 
+                                            Command="{Binding ModifySpecialityRC}" HorizontalAlignment="Center" Margin="0 10 0 10" ToolTip="Seleccione la Especialidad a Modificar"/>
                                     <Button x:Name="btnEliminar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="ELIMINAR" Width="120" 
-                                            Command="{Binding AddNewSpeciality}" HorizontalAlignment="Center" IsDefault="True" />
+                                            Command="{Binding DeleteSpecialityRC}" HorizontalAlignment="Center" ToolTip="Seleccione la Especialidad a Eliminar"/>
                                 </StackPanel>
                             </Grid>
                         </dxd:LayoutPanel>
                         <!--Listado de Pacientes -->
-                        <dxd:LayoutPanel Caption="Listado de Especialidades" CaptionHorizontalAlignment="Center" ItemHeight="3*">
+                        <dxd:LayoutPanel Caption="Listado de Especialidades" CaptionHorizontalAlignment="Center" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
-                                <ListView Margin="5 5 5 5" ItemsSource="{Binding SpecialityList}" ToolTip="Doble Click para Editar">
+                                <ListView IsTextSearchEnabled="True" Margin="5 5 5 5" Name="listViewSpecialities" ItemsSource="{Binding SpecialityList}" 
+                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding SelectedSpecialityItem, Mode=TwoWay}">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Name}"/>
+                                            <GridViewColumn Width="200" Header="Nombre" DisplayMemberBinding="{Binding Name}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

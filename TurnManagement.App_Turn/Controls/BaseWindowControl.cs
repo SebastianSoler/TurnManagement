@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.App_Turn.Views;
+using TurnManagement.App_Turn.Views.Dialogs;
 using TurnManagement.App_Turn.Views.Manager;
 using TurnManagement.App_Turn.Views.Turns;
 using TurnManagement.CrossCutting.Enumerations;
@@ -37,6 +38,11 @@ namespace TurnManagement.App_Turn.Controls
         /// The window for Patients Manager
         /// </summary>
         private SpecialitiesManagerView specialitiesWindow;
+
+        /// <summary>
+        /// The Input Dialog Box
+        /// </summary>
+        private InputDialogBox inputDialogBox;
 
         #endregion
 
@@ -130,6 +136,13 @@ namespace TurnManagement.App_Turn.Controls
                             specialitiesWindow.Owner = Application.Current.MainWindow;
                             // Show dialog
                             specialitiesWindow.ShowDialog();
+                            break;
+                        case ApplicationPage.inputDialogBox:
+                            inputDialogBox = new InputDialogBox();
+                            inputDialogBox.DataContext = viewModel;
+                            inputDialogBox.Owner = Application.Current.MainWindow;
+
+                            inputDialogBox.ShowDialog();
                             break;
                         default:
                             break;

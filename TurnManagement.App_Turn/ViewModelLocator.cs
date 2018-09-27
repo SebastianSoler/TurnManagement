@@ -30,6 +30,8 @@ namespace TurnManagement.App_Turn
 
         public MessageBoxDialogViewModel MessageBoxDialogViewModel => ServiceLocator.Current.GetInstance<MessageBoxDialogViewModel>();
 
+        public InputDialogBoxViewModel InputDialogBoxViewModel => ServiceLocator.Current.GetInstance<InputDialogBoxViewModel>();
+
         #endregion
 
         public static void Cleanup()

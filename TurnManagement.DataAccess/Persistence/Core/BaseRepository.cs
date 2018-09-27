@@ -83,6 +83,21 @@ namespace TurnManagement.DataAccess.Persistence.Core
             }
         }
 
+        public virtual void UpdateDeletedEntity(TEntity entity, bool withoutSaveChanges = false)
+        {
+            var dbEntity = baseCollection.SingleOrDefault(x => x.Id == entity.Id && x.IsDeleted);
+
+            if (dbEntity != null)
+            {
+                ((DbContext)dataContext).Entry(dbEntity).CurrentValues.SetValues(entity);
+
+                if (!withoutSaveChanges)
+                {
+                    SaveChanges();
+                }
+            }
+        }
+
         public int SaveChanges()
         {
             var loggedUser = "Admin";

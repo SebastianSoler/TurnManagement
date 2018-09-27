@@ -1,0 +1,57 @@
+﻿<Window x:Class="TurnManagement.App_Turn.Views.Dialogs.InputDialogBox"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="15"
+        FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Height="320" Width="350" BorderThickness="2" BorderBrush="CadetBlue"
+        WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding InputDialogBoxViewModel, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="1" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Grid >
+                <materialDesign:ColorZone Mode="Dark">
+                    <StackPanel HorizontalAlignment="Right">
+                        <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                                Padding="0" Click="ShotDownPage">
+                            <materialDesign:PackIcon Kind="WindowClose"/>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <materialDesign:ColorZone Mode="Dark" Margin="0 0 0 30">
+                <TextBlock Text="{Binding Title}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30 20 30 20"/>
+            </materialDesign:ColorZone>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <StackPanel Margin="15" Orientation="Vertical">
+                <!--<TextBlock Text="{Binding Message}" TextAlignment="Left" FontSize="17" Height="90"/> -->
+                <TextBox Text="{Binding OldSpecialityName, Mode=OneTime}" TextAlignment="Left"  Width="250" materialDesign:HintAssist.Hint="Nombre Anterior" 
+                         materialDesign:HintAssist.IsFloating="True" Focusable="False"/>
+                <TextBox Text="{Binding NewSpecialityName}" TextAlignment="Left" Width="250" materialDesign:HintAssist.Hint="Nuevo Nombre" 
+                         Name="txtNewSpecialityName" materialDesign:HintAssist.IsFloating="True"/>
+                <Button Content="Confimar" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Margin="0 30 10 0"
+                        Width="100" HorizontalAlignment="Right" Click="ConfirmModified"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

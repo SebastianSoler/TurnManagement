@@ -8,5 +8,16 @@ namespace TurnManagement.App_Turn.Views.Manager
         {
             InitializeComponent();
         }
+
+        private void PostAddSpeciality_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            txtSpecialityName.Text = string.Empty;
+            listViewSpecialities.Focus();
+        }
+
+        private void txtSpecialityName_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            txtSpecialityName.SelectAll();
+        }
     }
 }

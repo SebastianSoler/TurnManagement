@@ -13,5 +13,7 @@
         public const string PatientsManagerTittle = "Gestion de Pacientes";
         public const string ProfessionalsManagerTittle = "Gestion de Profesionales";
         public const string SpecialitiesManagerTittle = "Gestion de Especialidades";
+        public const string SpecialitiesEditTittle = "Edición de Especialidad";
+
     }
 }
