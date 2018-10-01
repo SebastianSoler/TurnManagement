@@ -36,6 +36,8 @@
                 </dxb:BarEditItem>
                 <dxb:BarButtonItem Command="" x:Name="searchPatient" Content="Buscar"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Find_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="stopSearchPatient" Content="Limpiar Busqueda"
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=BORules_32x32.png}"/>
             </dxb:BarManager.Items>
             <Grid>
                 <Grid.RowDefinitions>
@@ -57,6 +59,7 @@
                                 <dxb:BarItemLink BarItemName="lblSearch"/>
                                 <dxb:BarEditItemLink BarItemName="txtPatientSearch" />
                                 <dxb:BarButtonItemLink BarItemName="searchPatient" />
+                                <dxb:BarButtonItemLink BarItemName="stopSearchPatient" />
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                     </dxr:RibbonDefaultPageCategory>
@@ -67,7 +70,8 @@
                     <!--Vista principal y Calendario-->
                     <dxd:LayoutGroup Grid.Row="1">
                         <!--Panel Datos Pacientes -->
-                        <dxd:LayoutPanel ItemWidth="250" CaptionHorizontalAlignment="Center" Caption="Datos Paciente" Background="Transparent">
+                        <dxd:LayoutPanel ItemWidth="260" CaptionHorizontalAlignment="Center" Caption="Datos Paciente" Background="Transparent" ShowCloseButton="False" ShowPinButton="False">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <Grid HorizontalAlignment="Center">
                                 <StackPanel Orientation="Vertical" Height="auto">
                                     <TextBox x:Name="txtPatientName" Width="220" materialDesign:HintAssist.Hint="Nombre"
@@ -88,17 +92,21 @@
                                              materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0"/>
                                     <TextBox x:Name="txtPatientCellPhone" Width="220" materialDesign:HintAssist.Hint="Telefono"
                                              materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0"/>
+                                    <dxe:MemoEdit x:Name="txtProfessionalNote" Width="220" Height="40" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" NullText="Descripcion | Nota | Comentario" 
+                                                  PopupHeight="200" PopupWidth="150" MemoTextWrapping="Wrap" Text="{Binding professionalNote}" ToolTip="Descripcion | Nota | Comentario " ShowIcon="False"
+                                                  materialDesign:HintAssist.Hint="Descripcion/Nota" materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" />
                                     <Button x:Name="btnAgregar" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="AGREGAR" Width="120" 
                                             Command="{Binding AddNewPatient}" HorizontalAlignment="Center" IsDefault="True" Margin="0 10"/>
                                     <Button x:Name="btnModificar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="MODIFICAR" Width="120" 
                                             Command="{Binding ModifyPatient}" HorizontalAlignment="Center" Margin="0 10 0 10"/>
                                     <Button x:Name="btnEliminar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="ELIMINAR" Width="120" 
-                                            Command="{Binding DeletePatient}" HorizontalAlignment="Center" ToolTip="Elimina el Paciente Seleccionado"/>
+                                            Command="{Binding DeletePatient}" HorizontalAlignment="Center" ToolTip="Elimina el Paciente Seleccionado" Margin="0 0 0 15"/>
                                 </StackPanel>
                             </Grid>
+                            </ScrollViewer>
                         </dxd:LayoutPanel>
                         <!--Listado de Pacientes -->
-                        <dxd:LayoutPanel Caption="Listado de Pacientes" CaptionHorizontalAlignment="Center" ItemHeight="3*">
+                        <dxd:LayoutPanel Caption="Listado de Pacientes" CaptionHorizontalAlignment="Center" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
                                 <ListView Margin="5 5 5 5" ItemsSource="{Binding PatientList}" ToolTip="Doble Click para Editar">
                                     <ListView.View>

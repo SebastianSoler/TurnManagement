@@ -41,8 +41,8 @@
             <dxb:BarButtonItem Command="{Binding Path=Patients}" Content="Gestionar Pacientes" Name="Patients" RibbonStyle="Large" LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Patient_Male.png"/>
             <dxb:BarButtonItem Command="{Binding Path=Professionals}" Content="Gestionar Profesionales" x:Name="Professionals" RibbonStyle="Large" LargeGlyph="pack://application:,,,/TurnManagement.App_Turn;component/Images/Doctor_Male.png"/>
             <dxb:BarButtonItem Command="{Binding Path=Specialitys}" Content="Gestionar Especialidades" x:Name="Specialtys" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Project_32x32.png}"/>
-            <dxb:BarButtonItem Command="{Binding Path=}" Content="Imprimir Calendario" x:Name="printCalentar" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
-            <dxb:BarButtonItem Command="{Binding Path=}" Content="Exportar a PDF" x:Name="exportPdf" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Imprimir Calendario" x:Name="printCalentar" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
+            <dxb:BarButtonItem Command="" Content="Exportar a PDF" x:Name="exportPdf" RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
             <dxb:BarButtonItem Command="{Binding Path=Filter}" Content="Aplicar Filtro" RibbonStyle="Large" x:Name="Filter" LargeGlyph="{dx:DXImage Image=MasterFilter_32x32.png}" />
             <dxb:BarButtonItem Command="{Binding Path=ClearFilter}" Content="Limpiar Filtros" RibbonStyle="Large" x:Name="ClearFilter" LargeGlyph="{dx:DXImage Image=IgnoreMasterFilter_32x32.png}" Glyph="{dx:DXImage Image=IgnoreMasterFilter_16x16.png}" />
             <dxb:BarEditItem x:Name="ProfessionalFilterList" ToolTip="Filtrar por Profesional" BarItemDisplayMode="ContentAndGlyph" 

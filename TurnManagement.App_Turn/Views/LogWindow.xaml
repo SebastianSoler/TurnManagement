@@ -1,4 +1,6 @@
-﻿<Window x:Class="TurnManagement.App_Turn.Views.LogWindow"
+﻿<controls:BaseLogControl
+        xmlns:controls="clr-namespace:TurnManagement.App_Turn.Controls"
+        x:Class="TurnManagement.App_Turn.Views.LogWindow"
 
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -14,7 +16,7 @@
         
         mc:Ignorable="d"
         Title="Login Inicial"
-        Height="400" Width="400"
+        Height="400" Width="400" Initialized="Log_Initialized"
         WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
         DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
         FocusManager.FocusedElement="{Binding ElementName=txtUser}">
@@ -72,4 +74,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-</Window>
+</controls:BaseLogControl>

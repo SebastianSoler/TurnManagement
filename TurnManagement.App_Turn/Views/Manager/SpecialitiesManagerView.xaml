@@ -36,6 +36,8 @@
                 </dxb:BarEditItem>
                 <dxb:BarButtonItem Command="" x:Name="searchSpeciality" Content="Buscar"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Find_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="stopSearchSpeciality" Content="Limpiar Busqueda"
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=BORules_32x32.png}"/>
             </dxb:BarManager.Items>
             <Grid>
                 <Grid.RowDefinitions>
@@ -57,6 +59,7 @@
                                 <dxb:BarItemLink BarItemName="lblSearch"/>
                                 <dxb:BarEditItemLink BarItemName="txtSpecialitySearch" />
                                 <dxb:BarButtonItemLink BarItemName="searchSpeciality" />
+                                <dxb:BarButtonItemLink BarItemName="stopSearchSpeciality" />
                             </dxr:RibbonPageGroup>
                         </dxr:RibbonPage>
                     </dxr:RibbonDefaultPageCategory>

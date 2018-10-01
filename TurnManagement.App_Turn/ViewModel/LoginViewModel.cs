@@ -106,8 +106,9 @@ namespace TurnManagement.App_Turn.ViewModel
                     //Loggin Successfuly & Open Main Page
                     applicationViewModel.HandleSuccessfulLogin();                    
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.Write(e.Message);
                     //TODO: Mensaje de error al Abrir Main.
                     MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.LoginTitle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                 }
