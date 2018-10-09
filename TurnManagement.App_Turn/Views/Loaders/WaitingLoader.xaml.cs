@@ -3,11 +3,11 @@
 namespace TurnManagement.App_Turn.Views.Loaders
 {
     /// <summary>
-    /// Interaction logic for InitialLoader.xaml
+    /// Interaction logic for WaitingLoader.xaml
     /// </summary>
-    public partial class InitialLoader : Window
+    public partial class WaitingLoader : Window
     {
-        public InitialLoader()
+        public WaitingLoader()
         {
             InitializeComponent();
         }

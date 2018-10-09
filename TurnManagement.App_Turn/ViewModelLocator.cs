@@ -28,7 +28,9 @@ namespace TurnManagement.App_Turn
 
         public LoginViewModel LoginViewModel => ServiceLocator.Current.GetInstance<LoginViewModel>();
 
-        public MessageBoxDialogViewModel MessageBoxDialogViewModel => ServiceLocator.Current.GetInstance<MessageBoxDialogViewModel>();
+        //public MessageBoxDialogViewModel MessageBoxDialogViewModel => ServiceLocator.Current.GetInstance<MessageBoxDialogViewModel>();
+
+        public MessageDialogBoxViewModel MessageDialogBoxViewModel => ServiceLocator.Current.GetInstance<MessageDialogBoxViewModel>();
 
         public InputDialogBoxViewModel InputDialogBoxViewModel => ServiceLocator.Current.GetInstance<InputDialogBoxViewModel>();
 

@@ -14,8 +14,11 @@ namespace TurnManagement.App_Turn.Views
 
             InitializeComponent();
 
+            System.Threading.Thread.Sleep(4000);
             CloseLoader();
         }
+
+        //System.Threading.Tasks.Task.Delay(5000);
 
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -44,7 +47,7 @@ namespace TurnManagement.App_Turn.Views
 
         private void Log_Initialized(object sender, System.EventArgs e)
         {
-            txtUser.Focus();
+            //txtUser.Focus();
         }
     }
 }

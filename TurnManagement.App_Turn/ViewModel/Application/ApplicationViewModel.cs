@@ -51,6 +51,16 @@ namespace TurnManagement.App_Turn.ViewModel.Application
             await DI.DI.UI.ShowModalPage(page, baseViewModel);
         }
 
+        public void ShowWaitingLoader()
+        {
+            var result = DI.DI.UI.ShowWaitingLoader();
+        }
+
+        public void CloseWaitingLoader()
+        {
+            DI.DI.UI.CloseWaitingLoader();
+        }
+
         /// <summary>
         /// Navigates to the Main page
         /// </summary>
@@ -64,7 +74,6 @@ namespace TurnManagement.App_Turn.ViewModel.Application
             // Set the current page
             CurrentPage = page;
 
-            //Enviar a Pagina que viene por parametro.[viewModel]
             var mainVM = CommonServiceLocator.ServiceLocator.Current.GetInstance<MainViewModel>();
 
             DI.DI.UI.ShowPage(mainVM);

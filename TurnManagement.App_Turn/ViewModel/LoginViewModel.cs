@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using Propago.Net.CrossCutting.DDBBUtils;
-using TurnManagement.App_Turn.Controls.Checks;
 using TurnManagement.App_Turn.ViewModel.Application;
 using TurnManagement.App_Turn.ViewModel.Base;
+using TurnManagement.App_Turn.ViewModel.Dialogs;
 using TurnManagement.Business.Interfaces.Services;
+using TurnManagement.CrossCutting.Enumerations;
 using TurnManagement.CrossCutting.Strings;
 using TurnManagement.Domain.Entities;
 
@@ -17,6 +18,8 @@ namespace TurnManagement.App_Turn.ViewModel
         private readonly IApplicationUserService applicationUserService;
 
         private ApplicationViewModel applicationViewModel;
+
+        private MessageDialogBoxViewModel messageDialogBoxViewModel;
 
         //Properties
         public bool IsLog { get; set; } = false;
@@ -101,7 +104,11 @@ namespace TurnManagement.App_Turn.ViewModel
             {
                 try
                 {
-                    var result = await CheckDisplayMessage.DisplayMessageBox(GeneralMessages.LoginTitle, StatusMessage);
+                    messageDialogBoxViewModel = new MessageDialogBoxViewModel(GeneralMessages.LoginTitle, AccountMessages.CorrectCredentials);
+
+                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.MessageDialogBox, messageDialogBoxViewModel);
+
+                    //SE PRUEBA LANZAR PRIMERO EN EL MAIN Y LUEGO DESDE AQUI
 
                     //Loggin Successfuly & Open Main Page
                     applicationViewModel.HandleSuccessfulLogin();                    
@@ -117,13 +124,10 @@ namespace TurnManagement.App_Turn.ViewModel
             {
                 try
                 {
-                    var result = await CheckDisplayMessage.DisplayMessageBox(GeneralMessages.LoginTitle, StatusMessage);
+                    //Credenciales incorrectas
+                    messageDialogBoxViewModel = new MessageDialogBoxViewModel(GeneralMessages.LoginTitle, AccountMessages.WrongCredentials);
 
-                    // Display error
-                    if (result)
-                    {
-                        return;
-                    }
+                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.MessageDialogBox, messageDialogBoxViewModel);
                 }
                 catch (Exception){}
             }
@@ -135,13 +139,10 @@ namespace TurnManagement.App_Turn.ViewModel
             {
                 var messageContact = string.Concat(AccountMessages.ForgetPassMessage, AccountMessages.AdminInfo);
 
-                var result = await CheckDisplayMessage.DisplayMessageBox(GeneralMessages.InfoContact, messageContact);
+                //Credenciales incorrectas
+                messageDialogBoxViewModel = new MessageDialogBoxViewModel(GeneralMessages.LoginTitle, messageContact);
 
-                // Display error
-                if (result)
-                {
-                    return;
-                }
+                await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.MessageDialogBox, messageDialogBoxViewModel);
             }
             catch (Exception)
             {

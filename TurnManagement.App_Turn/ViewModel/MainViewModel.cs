@@ -122,6 +122,8 @@ namespace TurnManagement.App_Turn.ViewModel
 
             applicationViewModel = DI.DI.ViewModelApplication;
 
+            applicationViewModel.ShowWaitingLoader();
+
             RegisterRelayCommands();
             InitializerDataList();
         }
@@ -263,11 +265,11 @@ namespace TurnManagement.App_Turn.ViewModel
 
                     var inputBoxViewModel = new Dialogs.InputDialogBoxViewModel(oldName);
 
-                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.inputDialogBox, inputBoxViewModel);
+                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.InputDialogBox, inputBoxViewModel);
 
-                    if (!string.IsNullOrWhiteSpace(inputBoxViewModel.NewSpecialityName))
+                    if (!string.IsNullOrWhiteSpace(inputBoxViewModel.NewName))
                     {
-                        SelectedSpecialityItem.Name = inputBoxViewModel.NewSpecialityName;
+                        SelectedSpecialityItem.Name = inputBoxViewModel.NewName;
 
                         specialityService.Update(SelectedSpecialityItem);
 

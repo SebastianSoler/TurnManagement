@@ -44,7 +44,6 @@
 
         <Grid Grid.Row="2">
             <StackPanel Margin="15" Orientation="Vertical">
-                <!--<TextBlock Text="{Binding Message}" TextAlignment="Left" FontSize="17" Height="90"/> -->
                 <TextBox Text="{Binding OldSpecialityName, Mode=OneTime}" TextAlignment="Left"  Width="250" materialDesign:HintAssist.Hint="Nombre Anterior" 
                          materialDesign:HintAssist.IsFloating="True" Focusable="False"/>
                 <TextBox Text="{Binding NewSpecialityName}" TextAlignment="Left" Width="250" materialDesign:HintAssist.Hint="Nuevo Nombre" 

@@ -28,7 +28,8 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen" 
         UseLayoutRounding="True" 
-        
+        Loaded="DXRibbonWindow_Loaded"    
+    
         Icon="{dx:DXImage Image=Notes_32x32.png}"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
     <dxb:BarManager x:Name="barManager" ToolbarGlyphSize="Small">

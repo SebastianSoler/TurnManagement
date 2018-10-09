@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using TurnManagement.App_Turn.ViewModel.Base;
-using TurnManagement.App_Turn.ViewModel.Dialogs;
 using TurnManagement.CrossCutting.Enumerations;
 
 namespace TurnManagement.App_Turn.DI
@@ -10,13 +10,6 @@ namespace TurnManagement.App_Turn.DI
     /// </summary>
     public interface IUIManager
     {
-        /// <summary>
-        /// Displays a single message box to the user
-        /// </summary>
-        /// <param name="viewModel">The view model</param>
-        /// <returns></returns>
-        Task ShowMessage(MessageBoxDialogViewModel viewModel);
-
         /// <summary>
         /// Displays a Main Page
         /// </summary>
@@ -30,5 +23,10 @@ namespace TurnManagement.App_Turn.DI
         /// <param name="viewModel">The view model</param>
         /// <returns></returns>
         Task<bool> ShowModalPage(ApplicationPage page, BaseViewModel mainViewModel);
+
+        //Display a Waiting Loeader
+        Thread ShowWaitingLoader();
+
+        void CloseWaitingLoader();
     }
 }

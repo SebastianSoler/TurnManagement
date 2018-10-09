@@ -6,9 +6,9 @@ namespace TurnManagement.App_Turn.Views.Dialogs
     /// <summary>
     /// Interaction logic for MessageBoxDialogWindow.xaml
     /// </summary>
-    public partial class MessageBoxDialogWindow : Window
+    public partial class MessageDialogBox : Window
     {
-        public MessageBoxDialogWindow()
+        public MessageDialogBox()
         {
             InitializeComponent();
         }
@@ -20,7 +20,8 @@ namespace TurnManagement.App_Turn.Views.Dialogs
 
         private void ShutDown(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Close();
+            //Application.Current.Shutdown();
         }
     }
 }

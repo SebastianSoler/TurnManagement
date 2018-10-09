@@ -14,6 +14,8 @@
 
         Specialitys = 5,
 
-        inputDialogBox = 6
+        InputDialogBox = 6,
+
+        MessageDialogBox = 7
     }
 }

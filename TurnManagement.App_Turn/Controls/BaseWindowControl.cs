@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.App_Turn.Views;
 using TurnManagement.App_Turn.Views.Dialogs;
+using TurnManagement.App_Turn.Views.Loaders;
 using TurnManagement.App_Turn.Views.Manager;
 using TurnManagement.App_Turn.Views.Turns;
 using TurnManagement.CrossCutting.Enumerations;
@@ -44,6 +47,18 @@ namespace TurnManagement.App_Turn.Controls
         /// </summary>
         private InputDialogBox inputDialogBox;
 
+        /// <summary>
+        /// The Mesage Dialog Box
+        /// </summary>
+        private MessageDialogBox messageDialogBox;
+
+        /// <summary>
+        /// The Waiting Loader Box
+        /// </summary>
+        private WaitingLoader waitingLoader;
+
+        private Thread waitingLoaderThread { get; set; } = null;
+
         #endregion
 
         /// <summary>
@@ -51,7 +66,6 @@ namespace TurnManagement.App_Turn.Controls
         /// </summary>
         public BaseWindowControl()
         {
-            mainWindow = new MainWindow();
         }
 
         #region Public Dialog Show Methods
@@ -65,6 +79,9 @@ namespace TurnManagement.App_Turn.Controls
         public void ShowMainWindowPage<T>(T viewModel)
             where T : BaseViewModel
         {
+
+            mainWindow = new MainWindow();
+
             // Run on UI thread
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -109,7 +126,7 @@ namespace TurnManagement.App_Turn.Controls
                     switch (pageToOpen)
                     {
                         case ApplicationPage.Turns:
-                            //Instancio mi nueva ventana
+                            //New window Instance
                             turnWindow = new TurnView();
                             turnWindow.DataContext = viewModel;
                             turnWindow.Owner = Application.Current.MainWindow;
@@ -120,29 +137,31 @@ namespace TurnManagement.App_Turn.Controls
                             patientsWindow = new PatientsManagerView();
                             patientsWindow.DataContext = viewModel;
                             patientsWindow.Owner = Application.Current.MainWindow;
-                            // Show dialog
                             patientsWindow.ShowDialog();
                             break;
                         case ApplicationPage.Professionals:
                             professionalsWindow = new ProfessionalsManagerView();
                             professionalsWindow.DataContext = viewModel;
                             professionalsWindow.Owner = Application.Current.MainWindow;
-                            // Show dialog
                             professionalsWindow.ShowDialog();
                             break;
                         case ApplicationPage.Specialitys:
                             specialitiesWindow = new SpecialitiesManagerView();
                             specialitiesWindow.DataContext = viewModel;
                             specialitiesWindow.Owner = Application.Current.MainWindow;
-                            // Show dialog
                             specialitiesWindow.ShowDialog();
                             break;
-                        case ApplicationPage.inputDialogBox:
+                        case ApplicationPage.InputDialogBox:
                             inputDialogBox = new InputDialogBox();
                             inputDialogBox.DataContext = viewModel;
                             inputDialogBox.Owner = Application.Current.MainWindow;
-
                             inputDialogBox.ShowDialog();
+                            break;
+                        case ApplicationPage.MessageDialogBox:
+                            messageDialogBox = new MessageDialogBox();
+                            messageDialogBox.DataContext = viewModel;
+                            messageDialogBox.Owner = Application.Current.MainWindow;
+                            messageDialogBox.ShowDialog();
                             break;
                         default:
                             break;
@@ -162,6 +181,52 @@ namespace TurnManagement.App_Turn.Controls
             });
 
             return await tcs.Task;
+        }
+
+        [STAThread]
+        public Thread ShowWaitingLoader()
+        {
+            try
+            {
+                waitingLoaderThread = new Thread(new ThreadStart(delegate ()
+                {
+                    waitingLoader = new WaitingLoader();
+                    waitingLoader.Show();
+
+                    waitingLoader.Closed += (sender2, e2) => waitingLoader.Dispatcher.InvokeShutdown();
+
+                    System.Windows.Threading.Dispatcher.Run();
+                }));
+
+                waitingLoaderThread.SetApartmentState(ApartmentState.STA); // needs to be STA or throws exception
+                waitingLoaderThread.IsBackground = true;
+                waitingLoaderThread.Start();
+
+                Task.Delay(3000);
+
+                return waitingLoaderThread;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+                //abortado de Thread
+            }
+
+            return waitingLoaderThread;
+        }
+
+        [STAThread]
+        public void CloseWaitingLoader()
+        {
+            try
+            {
+                waitingLoaderThread.Abort();
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+                //Abort Exception from Thread Loader
+            }
         }
 
         #endregion

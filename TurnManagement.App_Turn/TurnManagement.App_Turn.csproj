@@ -214,8 +214,15 @@
     </ApplicationDefinition>
     <Compile Include="Controls\BaseLogControl.cs" />
     <Compile Include="ViewModel\Dialogs\InputDialogBoxViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\MessageDialogBoxViewModel.cs" />
     <Compile Include="Views\Dialogs\InputDialogBox.xaml.cs">
       <DependentUpon>InputDialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\MessageDialogBox.xaml.cs">
+      <DependentUpon>MessageDialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Loaders\WaitingLoader.xaml.cs">
+      <DependentUpon>WaitingLoader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Loaders\InitialLoader.xaml.cs">
       <DependentUpon>InitialLoader.xaml</DependentUpon>
@@ -232,21 +239,17 @@
     <Compile Include="Views\Turns\TurnView.xaml.cs">
       <DependentUpon>TurnView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Dialogs\DialogMessageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\DialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Dialogs\InputDialogBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\MessageBoxDialogWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\Dialogs\MessageDialogBox.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Loaders\WaitingLoader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Loaders\InitialLoader.xaml">
       <SubType>Designer</SubType>
@@ -266,9 +269,7 @@
     </Compile>
     <Compile Include="App_Start\UnityActivator.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="Controls\BaseDialogUserControl.cs" />
     <Compile Include="Controls\BaseWindowControl.cs" />
-    <Compile Include="Controls\Utils\CheckDisplayMessage.cs" />
     <Compile Include="DI\DI.cs" />
     <Compile Include="DI\IUIManager.cs" />
     <Compile Include="DI\UIManager.cs" />
@@ -279,19 +280,8 @@
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\Base\BaseDialogViewModel.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Dialogs\MessageBoxDialogViewModel.cs" />
-    <Compile Include="ViewModel\Dialogs\DialogWindowViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
-    <Compile Include="Views\Dialogs\DialogMessageBox.xaml.cs">
-      <DependentUpon>DialogMessageBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\DialogWindow.xaml.cs">
-      <DependentUpon>DialogWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\MessageBoxDialogWindow.xaml.cs">
-      <DependentUpon>MessageBoxDialogWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>

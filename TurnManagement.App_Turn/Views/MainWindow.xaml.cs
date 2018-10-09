@@ -10,7 +10,7 @@ namespace TurnManagement.App_Turn.Views
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -26,6 +26,11 @@ namespace TurnManagement.App_Turn.Views
         private void ShutDown(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void DXRibbonWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            DI.DI.ViewModelApplication.CloseWaitingLoader();
         }
     }
 }

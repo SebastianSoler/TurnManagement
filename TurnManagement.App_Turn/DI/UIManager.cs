@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TurnManagement.App_Turn.Controls;
 using TurnManagement.App_Turn.ViewModel.Base;
-using TurnManagement.App_Turn.ViewModel.Dialogs;
-using TurnManagement.App_Turn.Views.Dialogs;
 using TurnManagement.CrossCutting.Enumerations;
 
 namespace TurnManagement.App_Turn.DI
@@ -12,15 +10,9 @@ namespace TurnManagement.App_Turn.DI
     /// </summary>
     public class UIManager : IUIManager
     {
-        /// <summary>
-        /// Displays a single message box to the user
-        /// </summary>
-        /// <param name="viewModel">The view model</param>
-        /// <returns></returns>
-        public Task ShowMessage(MessageBoxDialogViewModel viewModel)
-        {
-            return new DialogMessageBox().ShowDialog(viewModel);
-        }
+        private static BaseWindowControl baseWindowLoaderControl;
+
+        //private 
 
         /// <summary>
         /// Displays some Modal Page
@@ -40,6 +32,24 @@ namespace TurnManagement.App_Turn.DI
         public void ShowPage(BaseViewModel mainViewModel)
         {
             new BaseWindowControl().ShowMainWindowPage(mainViewModel);
+        }
+
+        /// <summary>
+        /// Displays a Waiting Loader Box
+        /// </summary>
+        public System.Threading.Thread ShowWaitingLoader()
+        {
+            baseWindowLoaderControl = new BaseWindowControl();
+
+            return baseWindowLoaderControl.ShowWaitingLoader();
+        }
+
+        /// <summary>
+        /// Close a Waiting Loader Box
+        /// </summary>
+        public void CloseWaitingLoader()
+        {
+            baseWindowLoaderControl.CloseWaitingLoader();
         }
     }
 }
