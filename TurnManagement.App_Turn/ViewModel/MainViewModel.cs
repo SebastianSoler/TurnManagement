@@ -16,6 +16,9 @@ namespace TurnManagement.App_Turn.ViewModel
     {
         private ApplicationViewModel applicationViewModel;
 
+        private static string ValueDateEnd = DateTime.Now.ToShortDateString().ToString();
+        private static string ValueDateStart = new DateTime(1900, 01, 01).ToShortDateString().ToString();
+
         #region Private Properties SERVICES
 
         private readonly IApplicationUserService applicationUserService;
@@ -66,10 +69,28 @@ namespace TurnManagement.App_Turn.ViewModel
         }
 
         public IEnumerable<string> HealtInsuranceList { get; private set; } = new List<string>() { "IOMA", "OSDE", "ART" };
+        public IEnumerable<string> PlanList { get; private set; } = new List<string>() { "210", "310", "410", "510" };
+        public IEnumerable<string> GenreList { get; private set; } = new List<string>() { "Femenino", "Masculino", "No aclarado"};
 
         #endregion
 
         #region Public Properties 
+
+        #region Patient Properties
+
+        public string PatientFirstName { get; set; }
+        public string PatientLastName { get; set; }
+        public string PatientDni { get; set; }
+        public string PatientGenre { get; set; }
+        public string PatientDateOfBirth { get; set; }
+        public string PatientAddress { get; set; } = "";
+        public string PatientInsurance { get; set; }
+        public string PatientPlan { get; set; }
+        public string PatientEmail { get; set; }
+        public string PatientCellPhone { get; set; }
+        public string PatientNote { get; set; } = "";
+
+        #endregion
 
         private Professional professional { get; set; }
 
@@ -138,8 +159,8 @@ namespace TurnManagement.App_Turn.ViewModel
             Filter = new RelayCommand(execute: () => ApplyFilter(ProfessionalFilter));
 
             //Actions Commands
-            AddNewSpecialityRC = new RelayCommand(execute: () => AddNewSpeciality());
             AddNewPatientRC = new RelayCommand(execute: () => AddNewPatient());
+            AddNewSpecialityRC = new RelayCommand(execute: () => AddNewSpeciality());
             DeleteSpecialityRC = new RelayCommand(execute: () => DeleteSpeciality());
             ModifySpecialityRC = new RelayCommand(execute: () => ModifySpecialityAsync());
         }
@@ -285,7 +306,31 @@ namespace TurnManagement.App_Turn.ViewModel
 
         private void AddNewPatient()
         {
-            
+            try
+            {
+                var newPatient = new Patient()
+                {
+                    Name = PatientFirstName,
+                    SurnName = PatientLastName,
+                    Dni = PatientDni,
+                    Genre = PatientGenre,
+                    DateOfBirth = DateTime.Parse(PatientDateOfBirth),
+                    Address = PatientAddress,
+                    HealthInsurance = PatientInsurance,
+                    Plan = PatientPlan,
+                    Email = PatientEmail,
+                    CellPhone = PatientCellPhone,
+                    Note = PatientNote
+                };
+
+                patientService.Add(newPatient);
+
+                PatientList = patientService.GetAll();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
 
         #endregion

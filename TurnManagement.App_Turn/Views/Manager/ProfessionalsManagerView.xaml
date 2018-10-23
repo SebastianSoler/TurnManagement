@@ -82,7 +82,7 @@
                                     <TextBox x:Name="txtProfessionalDni" Width="220" materialDesign:HintAssist.Hint="DNI"
                                              materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0"/>
                                     <DatePicker x:Name="cldrProfessionalDateOfB" Width="220" materialDesign:HintAssist.Hint="Fecha Nacimiento" SelectedDateFormat="Short" Language="es-ES"
-                                                    materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" VerticalAlignment="Top" DisplayDateStart="1/1/1940" DisplayDateEnd="1/1/2000"/>
+                                                    materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" VerticalAlignment="Top" DisplayDateStart="1/1/1940" DisplayDateEnd="1/1/2019"/>
                                     <TextBox x:Name="txtProfessionalAddress" Width="220" materialDesign:HintAssist.Hint="Direccion" 
                                              materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0"/>
                                     <TextBox x:Name="txtProfessionalEmail" Width="220" materialDesign:HintAssist.Hint="Email" 
