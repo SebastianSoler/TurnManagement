@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="Cuadro de Informacion" 
         Height="300" Width="300" BorderThickness="2" BorderBrush="CadetBlue"
-        WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded"
         DataContext="{Binding MessageBoxDialogViewModel, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
             <Grid >
                 <materialDesign:ColorZone Mode="Dark">
                     <StackPanel HorizontalAlignment="Right">
-                        <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                        <Button x:Name="btnAcept" Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth4"
                                 Padding="0" Click="ShutDown">
                             <materialDesign:PackIcon Kind="WindowClose"/>
                         </Button>

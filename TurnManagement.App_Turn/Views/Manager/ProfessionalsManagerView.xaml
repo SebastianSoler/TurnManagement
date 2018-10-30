@@ -17,17 +17,19 @@
     FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     
     Title="Gestion de Profesionales" 
-    Height="700" Width="1000" ResizeMode="NoResize"
+    Height="700" Width="1000" ResizeMode="NoResize" BorderThickness="3" BorderBrush="CadetBlue"
     WindowStyle="None" WindowStartupLocation="CenterScreen"
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" 
     Icon="{dx:DXImage Image=BOTask_32x32.png}">
     <Grid>
         <dxb:BarManager>
             <dxb:BarManager.Items>
-                <dxb:BarButtonItem Command="" x:Name="SaveTurn" Content="Guardar y Cerrar"
+                <dxb:BarButtonItem x:Name="SaveAndClose" Content="Guardar y Cerrar" ItemClick="SaveAndCloseProfessionals"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=SaveAndClose_32x32.png}"/>
-                <dxb:BarButtonItem Command="" x:Name="Exit" Content="Salir"
-                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Delete_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="Print" Content="Imprimir" 
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="PrintPDF" Content="Imprimir PDF" 
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
                 <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
                 <dxb:BarEditItem Name="txtProfessionalSearch" EditWidth="250" EditHeight="30">
                     <dxb:BarEditItem.EditSettings>
@@ -49,11 +51,11 @@
                     <dxr:RibbonDefaultPageCategory>
                         <dxr:RibbonPage Caption="Profesionales">
                             <dxr:RibbonPageGroup Caption="Acciones">
-                                <dxb:BarButtonItemLink BarItemName="SaveTurn"/>
-                                <dxb:BarButtonItemLink BarItemName="Exit"/>
+                                <dxb:BarButtonItemLink BarItemName="SaveAndClose"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Herramientas">
-
+                                <dxb:BarButtonItemLink BarItemName="Print"/>
+                                <dxb:BarButtonItemLink BarItemName="PrintPDF"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Opciones">
                                 <dxb:BarStaticItemLink BarItemName="lblSearch" />
@@ -76,28 +78,32 @@
                             <Grid HorizontalAlignment="Center">
                                 <StackPanel Orientation="Vertical" CanVerticallyScroll="True" Height="auto" >
                                     <TextBox x:Name="txtProfessionalName" Width="220" materialDesign:HintAssist.Hint="Nombre"
-                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 5 0 0"/>
+                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 5 0 0" Text="{Binding Path=ProfessionalFirstName}"/>
                                     <TextBox x:Name="txtProfessionalSurnName" Width="220" materialDesign:HintAssist.Hint="Apellido" 
-                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0"/>
-                                    <TextBox x:Name="txtProfessionalDni" Width="220" materialDesign:HintAssist.Hint="DNI"
-                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0"/>
-                                    <DatePicker x:Name="cldrProfessionalDateOfB" Width="220" materialDesign:HintAssist.Hint="Fecha Nacimiento" SelectedDateFormat="Short" Language="es-ES"
-                                                    materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" VerticalAlignment="Top" DisplayDateStart="1/1/1940" DisplayDateEnd="1/1/2019"/>
+                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=ProfessionalSurnName}"/>
+                                    <TextBox x:Name="txtProfessionalDni" Width="220" materialDesign:HintAssist.Hint="DNI" 
+                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=ProfessionalDni}"/>
+                                    <ComboBox x:Name="txtProfessionalGenre" Width="220" materialDesign:HintAssist.Hint="Sexo" SelectedValue="{Binding Path=ProfessionalGenre}"
+                                            materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" ItemsSource="{Binding Path=GenreList}"/>
+                                    <DatePicker x:Name="cldrProfessionalDateOfB" Width="220" materialDesign:HintAssist.Hint="Fecha Nacimiento" VerticalAlignment="Center" SelectedDateFormat="Short" SelectedDate="{Binding  Path=ProfessionalDateOfBirth}"
+                                            materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" DisplayDateStart="{Binding Path=ValueDateStart}" DisplayDateEnd="{Binding Path=ValueDateEnd}" Language="es-ES"/>
+                                    <TextBox x:Name="txtProfessionalRegistrationNumber" Width="220" materialDesign:HintAssist.Hint="N° Matricula" 
+                                            materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=ProfessionalRegistrationNumber}"/>
                                     <TextBox x:Name="txtProfessionalAddress" Width="220" materialDesign:HintAssist.Hint="Direccion" 
-                                             materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0"/>
+                                            materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=ProfessionalAddress}"/>
                                     <TextBox x:Name="txtProfessionalEmail" Width="220" materialDesign:HintAssist.Hint="Email" 
-                                             materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0"/>
+                                             materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" Text="{Binding Path=ProfessionalEmail}"/>
                                     <TextBox x:Name="txtProfessionalCellPhone" Width="220" materialDesign:HintAssist.Hint="Telefono"
-                                             materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0"/>
+                                             materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" Text="{Binding Path=ProfessionalCellPhone}"/>
                                     <dxe:MemoEdit x:Name="txtProfessionalNote" Width="220" Height="40" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" NullText="Descripcion | Nota | Comentario" 
-                                                  PopupHeight="200" PopupWidth="150" MemoTextWrapping="Wrap" Text="{Binding professionalNote}" ToolTip="Descripcion | Nota | Comentario " ShowIcon="False"
-                                                  materialDesign:HintAssist.Hint="Descripcion/Nota" materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" />
+                                             PopupHeight="200" PopupWidth="150" MemoTextWrapping="Wrap" Text="{Binding Path=ProfessionalNote}" ToolTip="Descripcion | Nota | Comentario " ShowIcon="False"
+                                             materialDesign:HintAssist.Hint="Descripcion/Nota" materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" />
                                     <Button x:Name="btnAgregar" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="AGREGAR" Width="120" 
-                                            Command="{Binding AddNewProfessional}"  IsDefault="True" Margin="0 10"/>
+                                            Command="{Binding AddNewProfessionalRC}"  IsDefault="True" Margin="0 10" LostFocus="btnAgregar_LostFocus"/>
                                     <Button x:Name="btnModificar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="MODIFICAR" Width="120" 
-                                            Command="{Binding ModifyProfessional}" HorizontalAlignment="Center" Margin="0 10 0 10" ToolTip="Seleccione para Modificar"/>
+                                            Command="{Binding ModifyProfessionalRC}" HorizontalAlignment="Center" Margin="0 10 0 10" ToolTip="Modifique el Item Seleccionado"/>
                                     <Button x:Name="btnEliminar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="ELIMINAR" Width="120" 
-                                            Command="{Binding DeleteProfessional}" HorizontalAlignment="Center" ToolTip="Seleccione para Eliminar" Margin="0 0 0 15"/>
+                                            Command="{Binding DeleteProfessionalRC}" HorizontalAlignment="Center" ToolTip="Modifique el Item Seleccionado" Margin="0 0 0 15"/>
                                 </StackPanel>
                             </Grid>
                             </ScrollViewer>
@@ -105,18 +111,18 @@
                         <!--Listado de Pacientes -->
                         <dxd:LayoutPanel Caption="Listado de Profesionales" CaptionHorizontalAlignment="Center" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
-                                <ListView Margin="5 5 5 5" ItemsSource="{Binding ProfessionalList}" ToolTip="Doble Click para Editar">
-                                    <ListView.View>
+                                <ListView x:Name="listViewProfessionals" Margin="5 5 5 5" ItemsSource="{Binding Path=ProfessionalList}" 
+                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding Path=SelectedProfessionalItem, Mode=TwoWay}">
+                                <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Name}"/>
                                             <GridViewColumn Header="Apellido" DisplayMemberBinding="{Binding SurnName}"/>
-                                            <GridViewColumn Header="Matricula" DisplayMemberBinding="{Binding RegistrationNumber}"/>
+                                            <GridViewColumn Header="Matricula" DisplayMemberBinding="{Binding RegistrationNumber}" Width="auto"/>
                                             <GridViewColumn Header="Dni" DisplayMemberBinding="{Binding Dni}"/>
-                                            <GridViewColumn Header="Fecha Nac." DisplayMemberBinding="{Binding DateOfBirth}" Width="auto"/>
+                                            <GridViewColumn Header="Fecha Nac." DisplayMemberBinding="{Binding DateOfBirth, StringFormat='dd/MM/yyyy'}" Width="auto"/>
                                             <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
                                             <GridViewColumn Header="Direccion" DisplayMemberBinding="{Binding Address}"/>
                                             <GridViewColumn Header="Movil" DisplayMemberBinding="{Binding CellPhone}"/>
-                                            <GridViewColumn Header="Telefono" DisplayMemberBinding="{Binding Phone}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

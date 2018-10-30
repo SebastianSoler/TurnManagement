@@ -112,7 +112,7 @@ namespace TurnManagement.Business.Core
 
         private static string MessageFormater(IEnumerable<string> messages)
         {
-            var spliter = "||";
+            var spliter = " || ";
            
             StringBuilder message = new StringBuilder();
 

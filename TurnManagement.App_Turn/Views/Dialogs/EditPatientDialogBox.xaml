@@ -1,0 +1,86 @@
+﻿<Window x:Class="TurnManagement.App_Turn.Views.Dialogs.EditPatientDialogBox"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="13"
+        FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Height="550" Width="600" BorderThickness="2" BorderBrush="CadetBlue"
+        WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="1" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Grid >
+                <materialDesign:ColorZone Mode="Dark">
+                    <StackPanel HorizontalAlignment="Right">
+                        <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                                Padding="0" Click="ShotDownPage">
+                            <materialDesign:PackIcon Kind="WindowClose"/>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <materialDesign:ColorZone Mode="Dark" Margin="0 0 0 30">
+                <TextBlock Text="EDITAR DATOS DEL PACIENTE" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30 20 30 20"/>
+            </materialDesign:ColorZone>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="15" Orientation="Vertical" Grid.Column="0">
+                <TextBox x:Name="txtPatientName" Width="220" materialDesign:HintAssist.Hint="Nombre"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 5 0 0" Text="{Binding Path=EditPatient.Name}"/>
+                <TextBox x:Name="txtPatientSurName" Width="220" materialDesign:HintAssist.Hint="Apellido" 
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditPatient.SurnName}"/>
+                <TextBox Width="220" materialDesign:HintAssist.Hint="DNI" MaxLength="8"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditPatient.Dni}"/>
+                <ComboBox x:Name="txtPatientGenre" Width="220" materialDesign:HintAssist.Hint="Sexo" SelectedValue="{Binding Path=EditPatient.Genre}"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" />
+                <DatePicker x:Name="cldrPatientDateOfB" Width="220" materialDesign:HintAssist.Hint="Fecha Nacimiento" VerticalAlignment="Center" SelectedDateFormat="Short" SelectedDate="{Binding  Path=EditPatient.DateOfBirth, Mode=TwoWay}"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" DisplayDateStart="{Binding Path=ValueDateStart}" DisplayDateEnd="{Binding Path=ValueDateEnd}" Language="es-ES" DisplayDate="{Binding  Path=EditPatient.DateOfBirth, Mode=OneTime}"/>
+                <TextBox x:Name="txtPatientAddress" Width="220" materialDesign:HintAssist.Hint="Direccion"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditPatient.Address}"/>
+            </StackPanel>
+            <StackPanel Margin="15" Orientation="Vertical" Grid.Column="1">
+                <ComboBox x:Name="txtPatientHInsurance" Width="220" materialDesign:HintAssist.Hint="Obra Social" SelectedValue="{Binding Path=EditPatient.HealthInsurance}"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" ItemsSource="{Binding Path=HealtInsuranceList}"/>
+                <ComboBox x:Name="txtPatientPlan" Width="220" materialDesign:HintAssist.Hint="Plan" SelectedValue="{Binding Path=EditPatient.Plan}"
+                                             materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" ItemsSource="{Binding Path=PlanList}"/>
+                <TextBox x:Name="txtPatientEmail" Width="220" materialDesign:HintAssist.Hint="Email" 
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" Text="{Binding Path=EditPatient.Email}"/>
+                <TextBox x:Name="txtPatientCellPhone" Width="220" materialDesign:HintAssist.Hint="Telefono"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" Text="{Binding Path=EditPatient.CellPhone}"/>
+                <dxe:MemoEdit x:Name="txtPatientNote" Width="220" Height="40" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"
+                        PopupHeight="200" PopupWidth="150" MemoTextWrapping="Wrap" Text="{Binding Path=EditPatient.Note}" ToolTip="Descripcion | Nota | Comentario " ShowIcon="False"
+                        materialDesign:HintAssist.Hint="Descripcion/Nota" materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Button Content="Confimar" Style="{DynamicResource MaterialDesignRaisedAccentButton}" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Width="100" Click="ConfirmModified" Margin="0 0 150 0"/>
+            <Button Content="Cancelar" Style="{DynamicResource MaterialDesignRaisedLightButton}" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Width="100" Click="ShotDownPage" Margin="150 0 0 0"/>
+        </Grid>
+    </Grid>
+</Window>

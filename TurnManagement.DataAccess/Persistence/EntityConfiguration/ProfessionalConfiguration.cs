@@ -21,6 +21,8 @@ namespace TurnManagement.DataAccess.Persistence.EntityConfiguration
             Property(x => x.Genre).HasMaxLength(10).IsRequired();
             
             Property(x => x.Address).HasMaxLength(200).IsOptional();
+
+            Property(x => x.Note).HasMaxLength(256).IsOptional();
         }
     }
 }

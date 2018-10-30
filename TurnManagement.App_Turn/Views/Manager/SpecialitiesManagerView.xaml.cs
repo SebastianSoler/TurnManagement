@@ -19,5 +19,10 @@ namespace TurnManagement.App_Turn.Views.Manager
         {
             txtSpecialityName.SelectAll();
         }
+
+        private void SaveAndCloseSpecialities(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -17,17 +17,19 @@
     FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     
     Title="Gestion de Pacientes" 
-    Height="800" Width="1024" ResizeMode="NoResize"
+    Height="800" Width="1024" ResizeMode="NoResize" BorderThickness="3" BorderBrush="BlueViolet"
     WindowStyle="None" WindowStartupLocation="CenterScreen"
     DataContext="{Binding MainViewModel, Source={StaticResource Locator}}" 
     Icon="{dx:DXImage Image=Add_32x32.png}">
     <Grid>
         <dxb:BarManager>
             <dxb:BarManager.Items>
-                <dxb:BarButtonItem Command="" x:Name="SaveTurn" Content="Guardar y Cerrar"
+                <dxb:BarButtonItem x:Name="SaveAndClose" Content="Guardar y Cerrar" ItemClick="SaveAndClosePatients"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=SaveAndClose_32x32.png}"/>
-                <dxb:BarButtonItem Command="" x:Name="Exit" Content="Salir"
-                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Delete_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="Print" Content="Imprimir" 
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="PrintPDF" Content="Imprimir PDF" 
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
                 <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
                 <dxb:BarEditItem Name="txtPatientSearch" EditWidth="250" EditHeight="30">
                     <dxb:BarEditItem.EditSettings>
@@ -49,11 +51,11 @@
                     <dxr:RibbonDefaultPageCategory>
                         <dxr:RibbonPage Caption="Pacientes">
                             <dxr:RibbonPageGroup Caption="Acciones">
-                                <dxb:BarButtonItemLink BarItemName="SaveTurn"/>
-                                <dxb:BarButtonItemLink BarItemName="Exit"/>
+                                <dxb:BarButtonItemLink BarItemName="SaveAndClose"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Herramientas">
-                                
+                                <dxb:BarButtonItemLink BarItemName="Print"/>
+                                <dxb:BarButtonItemLink BarItemName="PrintPDF"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Opciones">
                                 <dxb:BarItemLink BarItemName="lblSearch"/>
@@ -100,7 +102,7 @@
                                     <Button x:Name="btnAgregar" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="AGREGAR" Width="120" LostFocus="btnAgregar_LostFocus" 
                                             Command="{Binding AddNewPatientRC}" HorizontalAlignment="Center" IsDefault="True" Margin="0 10"/>
                                     <Button x:Name="btnModificar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="MODIFICAR" Width="120" 
-                                            Command="{Binding ModifyPatientRC}" HorizontalAlignment="Center" Margin="0 10 0 10"/>
+                                            Command="{Binding ModifyPatientRC}" HorizontalAlignment="Center" Margin="0 10 0 10" ToolTip="Modifique el Paciente Seleccionado"/>
                                     <Button x:Name="btnEliminar" Style="{DynamicResource MaterialDesignRaisedLightButton}" Content="ELIMINAR" Width="120" 
                                             Command="{Binding DeletePatientRC}" HorizontalAlignment="Center" ToolTip="Elimina el Paciente Seleccionado" Margin="0 0 0 15"/>
                                 </StackPanel>
@@ -110,7 +112,8 @@
                         <!--Listado de Pacientes -->
                         <dxd:LayoutPanel Caption="Listado de Pacientes" CaptionHorizontalAlignment="Center" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
-                                <ListView x:Name="listViewPatients" Margin="5 5 5 5" ItemsSource="{Binding PatientList}" ToolTip="Doble Click para Editar">
+                                <ListView x:Name="listViewPatients" Margin="5 5 5 5" ItemsSource="{Binding Path=PatientList}"
+                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding Path=SelectedProfessionalItem, Mode=TwoWay}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Name}"/>

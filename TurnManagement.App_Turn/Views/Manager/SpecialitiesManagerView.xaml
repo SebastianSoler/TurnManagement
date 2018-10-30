@@ -24,10 +24,12 @@
     <Grid>
         <dxb:BarManager>
             <dxb:BarManager.Items>
-                <dxb:BarButtonItem Command="" x:Name="SaveTurn" Content="Guardar y Cerrar"
+                <dxb:BarButtonItem x:Name="SaveAndClose" Content="Guardar y Cerrar" ItemClick="SaveAndCloseSpecialities"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=SaveAndClose_32x32.png}"/>
-                <dxb:BarButtonItem Command="" x:Name="Exit" Content="Salir"
-                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Delete_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="Print" Content="Imprimir" 
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
+                <dxb:BarButtonItem Command="" x:Name="PrintPDF" Content="Imprimir PDF" 
+                                   RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
                 <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
                 <dxb:BarEditItem Name="txtSpecialitySearch" EditWidth="250" EditHeight="30" Content="{Binding txtSpecialitySearch}">
                     <dxb:BarEditItem.EditSettings>
@@ -49,11 +51,11 @@
                     <dxr:RibbonDefaultPageCategory>
                         <dxr:RibbonPage Caption="Especialidades">
                             <dxr:RibbonPageGroup Caption="Acciones">
-                                <dxb:BarButtonItemLink BarItemName="SaveTurn"/>
-                                <dxb:BarButtonItemLink BarItemName="Exit"/>
+                                <dxb:BarButtonItemLink BarItemName="SaveAndClose"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Herramientas">
-                                
+                                <dxb:BarButtonItemLink BarItemName="Print"/>
+                                <dxb:BarButtonItemLink BarItemName="PrintPDF"/>
                             </dxr:RibbonPageGroup>
                             <dxr:RibbonPageGroup Caption="Opciones">
                                 <dxb:BarItemLink BarItemName="lblSearch"/>

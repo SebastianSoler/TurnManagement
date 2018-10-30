@@ -23,5 +23,10 @@ namespace TurnManagement.App_Turn.Views.Dialogs
             Close();
             //Application.Current.Shutdown();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            btnAcept.Focus();
+        }
     }
 }

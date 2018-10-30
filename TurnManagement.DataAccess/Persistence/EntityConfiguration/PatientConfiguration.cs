@@ -14,7 +14,7 @@ namespace TurnManagement.DataAccess.Persistence.EntityConfiguration
 
             Property(x => x.Genre).HasMaxLength(10).IsRequired();
 
-            Property(x => x.DateOfBirth).IsRequired();
+            Property(x => x.DateOfBirth).IsOptional();
 
             Property(x => x.Address).HasMaxLength(200).IsOptional();
 

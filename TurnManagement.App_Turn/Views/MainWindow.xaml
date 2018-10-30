@@ -173,7 +173,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <!-- Calendario de Turnos -->
-                                <dxsch:SchedulerControl ActiveViewType="WorkWeek" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <dxsch:SchedulerControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <dxsch:SchedulerControl.FullWeekView>
                                         <dxsch:FullWeekView Enabled="False"/>
                                     </dxsch:SchedulerControl.FullWeekView>

@@ -22,7 +22,13 @@ namespace TurnManagement.App_Turn.Views.Manager
             txtPatientEmail.Text = string.Empty;
             txtPatientCellPhone.Text = string.Empty;
             txtPatientNote.Text = string.Empty;
+
             listViewPatients.Focus();
+        }
+
+        private void SaveAndClosePatients(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            Close();
         }
     }
 }

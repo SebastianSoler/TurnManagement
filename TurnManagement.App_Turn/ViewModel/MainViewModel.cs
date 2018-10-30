@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
+using Propago.Net.CrossCutting.CustomException;
 using TurnManagement.App_Turn.ViewModel.Application;
 using TurnManagement.App_Turn.ViewModel.Base;
 using TurnManagement.Business.Interfaces.Services;
@@ -89,18 +90,36 @@ namespace TurnManagement.App_Turn.ViewModel
         public string PatientEmail { get; set; }
         public string PatientCellPhone { get; set; }
         public string PatientNote { get; set; } = "";
+        public Patient SelectedPatientItem { get; set; } = null;
+        public Patient EditPatient { get; set; } = new Patient();
+
 
         #endregion
 
-        private Professional professional { get; set; }
+        #region Professional Properties
 
+        public string ProfessionalFirstName { get; set; }
+        public string ProfessionalLastName { get; set; }
+        public string ProfessionalDni { get; set; }
+        public string ProfessionalGenre { get; set; }
+        public string ProfessionalDateOfBirth { get; set; }
+        public string ProfessionalAddress { get; set; } = "";
+        public string ProfessionalEmail { get; set; }
+        public string ProfessionalCellPhone { get; set; }
+        public string ProfessionalNote { get; set; } = "";
+        public Professional professional { get; set; }
+        
         public string ProfessionalFilter { get; set; }
+        public Professional SelectedProfessionalItem { get; set; } = null;
 
+        #endregion
+
+        #region Speciality Properties
         public string NewSpecialityName { get;set; }
-
         public string txtSpecialitySearch { get; set; }
-
         public Speciality SelectedSpecialityItem { get; set; } = null;
+
+        #endregion
 
         #endregion
 
@@ -120,13 +139,17 @@ namespace TurnManagement.App_Turn.ViewModel
 
         public RelayCommand Filter { get; set; }
 
-        public RelayCommand AddNewSpecialityRC { get; set; }
-
         public RelayCommand AddNewPatientRC { get; set; }
+        public RelayCommand DeletePatientRC { get; set; }
+        public RelayCommand ModifyPatientRC { get; set; }
 
+        public RelayCommand AddNewSpecialityRC { get; set; }
         public RelayCommand DeleteSpecialityRC { get; set; }
-
         public RelayCommand ModifySpecialityRC { get; set; }
+
+        public RelayCommand AddNewProfessionalRC { get; set; }
+        public RelayCommand DeleteProfessionalRC { get; set; }
+        public RelayCommand ModifyProfessionalRC { get; set; }
 
         #endregion
 
@@ -160,9 +183,16 @@ namespace TurnManagement.App_Turn.ViewModel
 
             //Actions Commands
             AddNewPatientRC = new RelayCommand(execute: () => AddNewPatient());
+            ModifyPatientRC = new RelayCommand(execute: () => ModifyPatient());
+            DeletePatientRC = new RelayCommand(execute: () => DeletePatient());
+
             AddNewSpecialityRC = new RelayCommand(execute: () => AddNewSpeciality());
             DeleteSpecialityRC = new RelayCommand(execute: () => DeleteSpeciality());
             ModifySpecialityRC = new RelayCommand(execute: () => ModifySpecialityAsync());
+
+            AddNewProfessionalRC = new RelayCommand(execute: () => AddNewProfessional());
+            DeleteProfessionalRC = new RelayCommand(execute: () => DeleteProfessional());
+            ModifyProfessionalRC = new RelayCommand(execute: () => ModifyProfessional());
         }
 
         private void InitializerDataList()
@@ -244,9 +274,13 @@ namespace TurnManagement.App_Turn.ViewModel
 
                 SpecialityList = specialityService.GetAll();
             }
-            catch (Exception e)
+            catch(BusinessException be)
             {
-                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(be.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -270,9 +304,13 @@ namespace TurnManagement.App_Turn.ViewModel
                     }
                 }
             }
-            catch (Exception e)
+            catch (BusinessException be)
             {
-                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(be.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -314,7 +352,7 @@ namespace TurnManagement.App_Turn.ViewModel
                     SurnName = PatientLastName,
                     Dni = PatientDni,
                     Genre = PatientGenre,
-                    DateOfBirth = DateTime.Parse(PatientDateOfBirth),
+                    DateOfBirth = !string.IsNullOrWhiteSpace(PatientDateOfBirth) ? DateTime.Parse(PatientDateOfBirth) : DateTime.Parse(ValueDateEnd),
                     Address = PatientAddress,
                     HealthInsurance = PatientInsurance,
                     Plan = PatientPlan,
@@ -327,10 +365,115 @@ namespace TurnManagement.App_Turn.ViewModel
 
                 PatientList = patientService.GetAll();
             }
-            catch (Exception e)
+            catch (BusinessException be)
             {
-                MessageBox.Show(e.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(be.Message, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void ModifyPatient()
+        {
+            //Ya esta armada la interfaz, queda lanzarla y tomar los datos a editar!!
+        }
+
+        private void DeletePatient()
+        {
+            try
+            {
+                if (SelectedPatientItem != null)
+                {
+                    var patientId = SelectedPatientItem.Id;
+
+                    var bodyMessage = string.Format(ValidationMessages.ConfirmDeletePatient, SelectedPatientItem.Name);
+
+                    var result = MessageBox.Show(bodyMessage, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.OK);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        patientService.Delete(patientId);
+
+                        PatientList = patientService.GetAll();
+                    }
+                }
+            }
+            catch (BusinessException be)
+            {
+                MessageBox.Show(be.Message, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void AddNewProfessional()
+        {
+            try
+            {
+                var newProfessional = new Professional()
+                {
+                    Name = PatientFirstName,
+                    SurnName = PatientLastName,
+                    Dni = PatientDni,
+                    Genre = PatientGenre,
+                    DateOfBirth = !string.IsNullOrWhiteSpace(PatientDateOfBirth) ? DateTime.Parse(PatientDateOfBirth) : DateTime.Parse(ValueDateEnd),
+                    Address = PatientAddress,
+                    Email = PatientEmail,
+                    CellPhone = PatientCellPhone,
+                    Note = PatientNote
+                };
+
+                professionalService.Add(newProfessional);
+
+                ProfessionalList = professionalService.GetAll();
+            }
+            catch (BusinessException be)
+            {
+                MessageBox.Show(be.Message, GeneralMessages.ProfessionalsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.ProfessionalsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void DeleteProfessional()
+        {
+            try
+            {
+                if (SelectedProfessionalItem != null)
+                {
+                    var professionalId = SelectedProfessionalItem.Id;
+
+                    var bodyMessage = string.Format(ValidationMessages.ConfirmDeleteProfessional, string.Concat(SelectedProfessionalItem.Name, " ", SelectedProfessionalItem.SurnName));
+
+                    var result = MessageBox.Show(bodyMessage, GeneralMessages.ProfessionalsManagerTittle, MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.OK);
+
+                    if (result == MessageBoxResult.OK) 
+                    {
+                        professionalService.Delete(SelectedProfessionalItem.Id);
+
+                        ProfessionalList= professionalService.GetAll();
+                    }
+                }
+            }
+            catch (BusinessException be)
+            {
+                MessageBox.Show(be.Message, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.SpecialitiesManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void ModifyProfessional()
+        {
+            //Implementar
         }
 
         #endregion
