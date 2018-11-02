@@ -2,12 +2,9 @@
 
 namespace TurnManagement.App_Turn.Views.Dialogs
 {
-    /// <summary>
-    /// Interaction logic for InputDialogBox.xaml
-    /// </summary>
-    public partial class EditPatientDialogBox : Window
+    public partial class EditProfessionalDialogBox : Window
     {
-        public EditPatientDialogBox()
+        public EditProfessionalDialogBox()
         {
             InitializeComponent();
         }
@@ -25,7 +22,7 @@ namespace TurnManagement.App_Turn.Views.Dialogs
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            txtEditPatientName.Focus();
+            txtEditProfessionalName.Focus();
         }
     }
 }

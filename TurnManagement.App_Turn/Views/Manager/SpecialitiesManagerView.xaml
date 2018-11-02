@@ -31,14 +31,14 @@
                 <dxb:BarButtonItem Command="" x:Name="PrintPDF" Content="Imprimir PDF" 
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=PrintViaPDF_32x32.png}"/>
                 <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
-                <dxb:BarEditItem Name="txtSpecialitySearch" EditWidth="250" EditHeight="30" Content="{Binding txtSpecialitySearch}">
+                <dxb:BarEditItem Name="txtSpecialitySearch" EditWidth="250" EditHeight="30" Content="{Binding Path=FindSpecialityTxt}" EditValue="{Binding Path=FindSpecialityTxt}">
                     <dxb:BarEditItem.EditSettings>
-                        <dxe:TextEditSettings />
+                        <dxe:TextEditSettings NullText="Nombre Especialidad"/>
                     </dxb:BarEditItem.EditSettings>
                 </dxb:BarEditItem>
-                <dxb:BarButtonItem Command="" x:Name="searchSpeciality" Content="Buscar"
+                <dxb:BarButtonItem Command="{Binding Path=FindSpecialityRC}" x:Name="searchSpeciality" Content="Buscar"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Find_32x32.png}"/>
-                <dxb:BarButtonItem Command="" x:Name="stopSearchSpeciality" Content="Limpiar Busqueda"
+                <dxb:BarButtonItem Command="{Binding Path=CleanSearchSpeciality}" x:Name="stopSearchSpeciality" Content="Limpiar Busqueda"
                                    RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=BORules_32x32.png}"/>
             </dxb:BarManager.Items>
             <Grid>
@@ -91,8 +91,8 @@
                         <!--Listado de Pacientes -->
                         <dxd:LayoutPanel Caption="Listado de Especialidades" CaptionHorizontalAlignment="Center" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
-                                <ListView IsTextSearchEnabled="True" Margin="5 5 5 5" Name="listViewSpecialities" ItemsSource="{Binding SpecialityList}" 
-                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding SelectedSpecialityItem, Mode=TwoWay}">
+                                <ListView IsTextSearchEnabled="True" Margin="5 5 5 5" Name="listViewSpecialities" ItemsSource="{Binding Path=SpecialityList, NotifyOnSourceUpdated=True}" 
+                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding Path=SelectedSpecialityItem, Mode=TwoWay}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Width="200" Header="Nombre" DisplayMemberBinding="{Binding Name}"/>

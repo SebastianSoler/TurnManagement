@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using Propago.Net.CrossCutting.CustomException;
 using TurnManagement.App_Turn.ViewModel.Application;
 using TurnManagement.App_Turn.ViewModel.Base;
+using TurnManagement.App_Turn.Views.Dialogs;
 using TurnManagement.Business.Interfaces.Services;
 using TurnManagement.CrossCutting.Enumerations;
 using TurnManagement.CrossCutting.Strings;
@@ -49,7 +50,7 @@ namespace TurnManagement.App_Turn.ViewModel
             }
         }
 
-        public IEnumerable<Professional> ProfessionalList 
+        public IEnumerable<Professional> ProfessionalList
         {
             get { return _professionalList; }
             private set
@@ -91,7 +92,8 @@ namespace TurnManagement.App_Turn.ViewModel
         public string PatientCellPhone { get; set; }
         public string PatientNote { get; set; } = "";
         public Patient SelectedPatientItem { get; set; } = null;
-        public Patient EditPatient { get; set; } = new Patient();
+        public Patient EditPatient { get; set; } = null;
+        public string FindPatientTxt { get; set; }
 
 
         #endregion
@@ -107,16 +109,17 @@ namespace TurnManagement.App_Turn.ViewModel
         public string ProfessionalEmail { get; set; }
         public string ProfessionalCellPhone { get; set; }
         public string ProfessionalNote { get; set; } = "";
-        public Professional professional { get; set; }
+        public Professional EditProfessional { get; set; } = null;
         
         public string ProfessionalFilter { get; set; }
+        public string FindProfessionalTxt { get; set; }
         public Professional SelectedProfessionalItem { get; set; } = null;
 
         #endregion
 
         #region Speciality Properties
         public string NewSpecialityName { get;set; }
-        public string txtSpecialitySearch { get; set; }
+        public string FindSpecialityTxt { get; set; } = "";
         public Speciality SelectedSpecialityItem { get; set; } = null;
 
         #endregion
@@ -142,14 +145,19 @@ namespace TurnManagement.App_Turn.ViewModel
         public RelayCommand AddNewPatientRC { get; set; }
         public RelayCommand DeletePatientRC { get; set; }
         public RelayCommand ModifyPatientRC { get; set; }
+        public RelayCommand ConfirmEditPatientRC { get; set; }
+        public RelayCommand FindPatientRC { get; set; }
 
         public RelayCommand AddNewSpecialityRC { get; set; }
         public RelayCommand DeleteSpecialityRC { get; set; }
         public RelayCommand ModifySpecialityRC { get; set; }
+        public RelayCommand FindSpecialityRC { get; set; }
 
         public RelayCommand AddNewProfessionalRC { get; set; }
         public RelayCommand DeleteProfessionalRC { get; set; }
         public RelayCommand ModifyProfessionalRC { get; set; }
+        public RelayCommand ConfirmEditProfessionalRC { get; set; }
+        public RelayCommand FindProfessionalRC { get; set; }
 
         #endregion
 
@@ -184,15 +192,18 @@ namespace TurnManagement.App_Turn.ViewModel
             //Actions Commands
             AddNewPatientRC = new RelayCommand(execute: () => AddNewPatient());
             ModifyPatientRC = new RelayCommand(execute: () => ModifyPatient());
+            ConfirmEditPatientRC = new RelayCommand(execute: () => ConfirmEditedPatient());
             DeletePatientRC = new RelayCommand(execute: () => DeletePatient());
 
             AddNewSpecialityRC = new RelayCommand(execute: () => AddNewSpeciality());
             DeleteSpecialityRC = new RelayCommand(execute: () => DeleteSpeciality());
             ModifySpecialityRC = new RelayCommand(execute: () => ModifySpecialityAsync());
+            FindSpecialityRC = new RelayCommand(execute: () => FindSpeciality());
 
             AddNewProfessionalRC = new RelayCommand(execute: () => AddNewProfessional());
             DeleteProfessionalRC = new RelayCommand(execute: () => DeleteProfessional());
             ModifyProfessionalRC = new RelayCommand(execute: () => ModifyProfessional());
+            ConfirmEditProfessionalRC = new RelayCommand(execute: () => ConfirmEditProfessional());
         }
 
         private void InitializerDataList()
@@ -264,6 +275,7 @@ namespace TurnManagement.App_Turn.ViewModel
 
         #region ACTION COMMANDS
 
+        //SPECIALITIES
         private void AddNewSpeciality()
         {
             try
@@ -342,6 +354,21 @@ namespace TurnManagement.App_Turn.ViewModel
             }
         }
 
+        private void FindSpeciality()
+        {
+            try
+            {
+                if(!string.IsNullOrWhiteSpace(FindSpecialityTxt))
+                {
+                    SpecialityList = specialityService.GetSpecialities(FindSpecialityTxt);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        //PATIENTS
         private void AddNewPatient()
         {
             try
@@ -375,9 +402,39 @@ namespace TurnManagement.App_Turn.ViewModel
             }
         }
 
-        private void ModifyPatient()
+        private async void ModifyPatient()
         {
-            //Ya esta armada la interfaz, queda lanzarla y tomar los datos a editar!!
+            try
+            {
+                if (SelectedPatientItem != null)
+                {
+                    EditPatient = SelectedPatientItem;
+
+                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.EditPatientDialogBox, this);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void ConfirmEditedPatient()
+        {
+            try
+            {
+                patientService.Update(EditPatient);
+
+                PatientList = patientService.GetAll();
+            }
+            catch(BusinessException be)
+            {
+                MessageBox.Show(be.Message, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.PatientsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
 
         private void DeletePatient()
@@ -410,6 +467,21 @@ namespace TurnManagement.App_Turn.ViewModel
             }
         }
 
+        private void FindPatient()
+        {
+            try
+            {
+                //if (!string.IsNullOrWhiteSpace(FindSpecialityTxt))
+                //{
+                //    SpecialityList = specialityService.GetSpecialities(FindSpecialityTxt);
+                //}
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        //PROFESSIONALS
         private void AddNewProfessional()
         {
             try
@@ -471,9 +543,53 @@ namespace TurnManagement.App_Turn.ViewModel
             }
         }
 
-        private void ModifyProfessional()
+        private async void ModifyProfessional()
         {
-            //Implementar
+            try
+            {
+                if (SelectedProfessionalItem != null)
+                {
+                    EditProfessional = SelectedProfessionalItem;
+
+                    await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.EditProfessionalDialogBox, this);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, GeneralMessages.ProfessionalEditTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void ConfirmEditProfessional()
+        {
+            try
+            {
+               professionalService.Update(EditProfessional);
+
+                ProfessionalList = professionalService.GetAll();
+            }
+            catch (BusinessException be)
+            {
+                MessageBox.Show(be.Message, GeneralMessages.ProfessionalEditTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(GeneralMessages.ContactAdminMessage, GeneralMessages.ProfessionalsManagerTittle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void FindProfessional()
+        {
+            try
+            {
+                //if (!string.IsNullOrWhiteSpace(FindSpecialityTxt))
+                //{
+                //    SpecialityList = specialityService.GetSpecialities(FindSpecialityTxt);
+                //}
+            }
+            catch (Exception)
+            {
+            }
         }
 
         #endregion

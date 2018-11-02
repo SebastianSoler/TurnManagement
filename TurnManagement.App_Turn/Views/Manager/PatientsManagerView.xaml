@@ -33,7 +33,7 @@
                 <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
                 <dxb:BarEditItem Name="txtPatientSearch" EditWidth="250" EditHeight="30">
                     <dxb:BarEditItem.EditSettings>
-                        <dxe:TextEditSettings />
+                        <dxe:TextEditSettings NullText="Nombre | Apellido | Dni"/>
                     </dxb:BarEditItem.EditSettings>
                 </dxb:BarEditItem>
                 <dxb:BarButtonItem Command="" x:Name="searchPatient" Content="Buscar"
@@ -113,7 +113,7 @@
                         <dxd:LayoutPanel Caption="Listado de Pacientes" CaptionHorizontalAlignment="Center" ItemHeight="3*" ShowCloseButton="False" ShowPinButton="False">
                             <Grid>
                                 <ListView x:Name="listViewPatients" Margin="5 5 5 5" ItemsSource="{Binding Path=PatientList}"
-                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding Path=SelectedProfessionalItem, Mode=TwoWay}">
+                                          SelectionMode="Single" ToolTip="Seleccione para Modificar | Elimninar" SelectedValue="Name" SelectedItem="{Binding Path=SelectedPatientItem, Mode=TwoWay}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Name}"/>

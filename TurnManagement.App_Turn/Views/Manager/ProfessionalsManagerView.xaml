@@ -33,7 +33,7 @@
                 <dxb:BarStaticItem x:Name="lblSearch" Content="Campo de Busqueda" AutoSizeMode="Content"/>
                 <dxb:BarEditItem Name="txtProfessionalSearch" EditWidth="250" EditHeight="30">
                     <dxb:BarEditItem.EditSettings>
-                        <dxe:TextEditSettings />
+                        <dxe:TextEditSettings NullText="Nombre | Apellido | Dni" />
                     </dxb:BarEditItem.EditSettings>
                 </dxb:BarEditItem>
                 <dxb:BarButtonItem Command="" x:Name="searchProfessional" Content="Buscar"
@@ -119,6 +119,7 @@
                                             <GridViewColumn Header="Apellido" DisplayMemberBinding="{Binding SurnName}"/>
                                             <GridViewColumn Header="Matricula" DisplayMemberBinding="{Binding RegistrationNumber}" Width="auto"/>
                                             <GridViewColumn Header="Dni" DisplayMemberBinding="{Binding Dni}"/>
+                                            <GridViewColumn Header="Sexo" DisplayMemberBinding="{Binding Genre}" Width="auto"/>
                                             <GridViewColumn Header="Fecha Nac." DisplayMemberBinding="{Binding DateOfBirth, StringFormat='dd/MM/yyyy'}" Width="auto"/>
                                             <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
                                             <GridViewColumn Header="Direccion" DisplayMemberBinding="{Binding Address}"/>

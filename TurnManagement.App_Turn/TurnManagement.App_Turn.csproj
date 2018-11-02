@@ -215,6 +215,9 @@
     <Compile Include="Controls\BaseLogControl.cs" />
     <Compile Include="ViewModel\Dialogs\InputDialogBoxViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\MessageDialogBoxViewModel.cs" />
+    <Compile Include="Views\Dialogs\EditProfessionalDialogBox.xaml.cs">
+      <DependentUpon>EditProfessionalDialogBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\EditPatientDialogBox.xaml.cs">
       <DependentUpon>EditPatientDialogBox.xaml</DependentUpon>
     </Compile>
@@ -242,6 +245,10 @@
     <Compile Include="Views\Turns\TurnView.xaml.cs">
       <DependentUpon>TurnView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Dialogs\EditProfessionalDialogBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Dialogs\EditPatientDialogBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

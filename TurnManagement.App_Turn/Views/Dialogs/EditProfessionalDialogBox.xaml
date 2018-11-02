@@ -1,0 +1,84 @@
+﻿<Window x:Class="TurnManagement.App_Turn.Views.Dialogs.EditProfessionalDialogBox"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="13"
+        FontFamily="pack://application:/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Height="520" Width="600" BorderThickness="2" BorderBrush="CadetBlue"
+        WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="1" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Grid >
+                <materialDesign:ColorZone Mode="Dark">
+                    <StackPanel HorizontalAlignment="Right">
+                        <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                                Padding="0" Click="ShotDownPage">
+                            <materialDesign:PackIcon Kind="WindowClose"/>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <materialDesign:ColorZone Mode="Dark" Margin="0 0 0 30">
+                <TextBlock Text="MODIFICAR DATOS DEL PROFESIONAL" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30 20 30 20"/>
+            </materialDesign:ColorZone>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="15" Orientation="Vertical" Grid.Column="0">
+                <TextBox x:Name="txtEditProfessionalName" Width="220" materialDesign:HintAssist.Hint="Nombre"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 5 0 0" Text="{Binding Path=EditProfessional.Name}"/>
+                <TextBox x:Name="txtProfessionalSurName" Width="220" materialDesign:HintAssist.Hint="Apellido" 
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditProfessional.SurnName}"/>
+                <TextBox Width="220" materialDesign:HintAssist.Hint="DNI" MaxLength="8"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditProfessional.Dni, Mode=TwoWay}"/>
+                <TextBox Width="220" materialDesign:HintAssist.Hint="Matricula"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditProfessional.RegistrationNumber, Mode=TwoWay}"/>
+                <ComboBox x:Name="txtProfessionalGenre" Width="220" materialDesign:HintAssist.Hint="Sexo" SelectedValue="{Binding Path=EditProfessional.Genre}"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" ItemsSource="{Binding Path=GenreList}" />
+            </StackPanel>
+            <StackPanel Margin="15" Orientation="Vertical" Grid.Column="1">
+                <DatePicker x:Name="cldrProfessionalDateOfB" Width="220" materialDesign:HintAssist.Hint="Fecha Nacimiento" VerticalAlignment="Center" SelectedDateFormat="Short" SelectedDate="{Binding  Path=EditProfessional.DateOfBirth, Mode=TwoWay}"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" DisplayDateStart="{Binding Path=ValueDateStart}" DisplayDateEnd="{Binding Path=ValueDateEnd}" Language="es-ES" DisplayDate="{Binding  Path=EditProfessional.DateOfBirth, Mode=OneTime}"/>
+                <TextBox x:Name="txtProfessionalAddress" Width="220" materialDesign:HintAssist.Hint="Direccion"
+                        materialDesign:HintAssist.IsFloating="True"  Margin="0 10 0 0" Text="{Binding Path=EditProfessional.Address}"/>
+                <TextBox x:Name="txtProfessionalEmail" Width="220" materialDesign:HintAssist.Hint="Email" 
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" Text="{Binding Path=EditProfessional.Email}"/>
+                <TextBox x:Name="txtProfessionalCellPhone" Width="220" materialDesign:HintAssist.Hint="Telefono"
+                        materialDesign:HintAssist.IsFloating="True" Margin="0 10 0 0" Text="{Binding Path=EditProfessional.CellPhone}"/>
+                <dxe:MemoEdit x:Name="txtProfessionalNote" Width="220" Height="40" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"
+                        PopupHeight="200" PopupWidth="150" MemoTextWrapping="Wrap" Text="{Binding Path=EditProfessional.Note, Mode=TwoWay}" ToolTip="Descripcion | Nota | Comentario " ShowIcon="False"
+                        materialDesign:HintAssist.Hint="Descripcion/Nota" materialDesign:HintAssist.IsFloating="True" Margin="0 15 0 0" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Button Content="Confimar" Style="{DynamicResource MaterialDesignRaisedAccentButton}" HorizontalAlignment="Center" Click="ShotDownPage"
+                    VerticalAlignment="Center" Width="100" Margin="0 0 150 0" Command="{Binding Path=ConfirmEditProfessionalRC}" IsDefault="True" />
+            <Button Content="Cancelar" Style="{DynamicResource MaterialDesignRaisedLightButton}" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Width="100" Click="ShotDownPage" Margin="150 0 0 0"/>
+        </Grid>
+    </Grid>
+</Window>

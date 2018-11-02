@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Propago.Net.CrossCutting.CustomException;
 using TurnManagement.Business.Core;
 using TurnManagement.Business.Interfaces.Services;
 using TurnManagement.CrossCutting.Strings;
@@ -44,11 +46,30 @@ namespace TurnManagement.Business.Services
             }
         }
 
+        public override void Update(Professional item)
+        {
+            var duplicatedDni = baseRepository.GetAll().Any(x => x.Dni == item.Dni && x.Id != item.Id);
+
+            if (duplicatedDni)
+            {
+                throw new BusinessException(ValidationMessages.DuplicatedDni);
+            }
+
+            base.Update(item);
+        }
+
         public override void Delete(int id)
         {
             //TODO: Buscar si tiene turnos Proximos asignados antes de Eliminar!!
 
             base.Delete(id);
+        }
+
+        public IEnumerable<Professional> GetProfessionals(string professionalSearch)
+        {
+            return baseRepository.GetAll().Where(x => x.Name.Contains(professionalSearch) 
+                                                   || x.SurnName.Contains(professionalSearch) 
+                                                   || x.Dni.Contains(professionalSearch));
         }
 
         private bool IsValidEmail(string email)

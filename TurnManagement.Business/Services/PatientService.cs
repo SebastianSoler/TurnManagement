@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Propago.Net.CrossCutting.CustomException;
 using TurnManagement.Business.Core;
@@ -56,6 +57,13 @@ namespace TurnManagement.Business.Services
         {
             // Consultar y Verificar si tiene turnos asignados y Eliminarlos tambien
             base.Delete(id);
+        }
+
+        public IEnumerable<Patient> GetPatients(string PatientSearch)
+        {
+            return baseRepository.GetAll().Where(x => x.Name.Contains(PatientSearch)
+                                                   || x.SurnName.Contains(PatientSearch)
+                                                   || x.Dni.Contains(PatientSearch));
         }
 
         private bool IsValidEmail(string email)

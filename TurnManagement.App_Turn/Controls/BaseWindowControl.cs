@@ -53,6 +53,16 @@ namespace TurnManagement.App_Turn.Controls
         private MessageDialogBox messageDialogBox;
 
         /// <summary>
+        /// The Edit Patient Dialog Box
+        /// </summary>
+        private EditPatientDialogBox editPatientDialogBox;
+
+        /// <summary>
+        /// The Edit Professional Dialog Box
+        /// </summary>
+        private EditProfessionalDialogBox editProfessionalDialogBox;
+
+        /// <summary>
         /// The Waiting Loader Box
         /// </summary>
         private WaitingLoader waitingLoader;
@@ -162,6 +172,18 @@ namespace TurnManagement.App_Turn.Controls
                             messageDialogBox.DataContext = viewModel;
                             messageDialogBox.Owner = Application.Current.MainWindow;
                             messageDialogBox.ShowDialog();
+                            break;
+                        case ApplicationPage.EditPatientDialogBox:
+                            editPatientDialogBox = new EditPatientDialogBox();
+                            editPatientDialogBox.DataContext = viewModel;
+                            editPatientDialogBox.Owner = Application.Current.MainWindow;
+                            editPatientDialogBox.ShowDialog();
+                            break;
+                        case ApplicationPage.EditProfessionalDialogBox:
+                            editProfessionalDialogBox = new EditProfessionalDialogBox();
+                            editProfessionalDialogBox.DataContext = viewModel;
+                            editProfessionalDialogBox.Owner = Application.Current.MainWindow;
+                            editProfessionalDialogBox.ShowDialog();
                             break;
                         default:
                             break;

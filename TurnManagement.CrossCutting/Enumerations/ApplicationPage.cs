@@ -16,6 +16,10 @@
 
         InputDialogBox = 6,
 
-        MessageDialogBox = 7
+        MessageDialogBox = 7,
+
+        EditPatientDialogBox = 8,
+
+        EditProfessionalDialogBox = 9
     }
 }

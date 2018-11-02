@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Propago.Net.CrossCutting.CustomException;
 using TurnManagement.Business.Core;
 using TurnManagement.Business.Interfaces.Services;
@@ -35,6 +36,11 @@ namespace TurnManagement.Business.Services
             }
 
             base.Update(item);
+        }
+
+        public IEnumerable<Speciality> GetSpecialities(string specialityName)
+        {
+            return baseRepository.GetAll().Where(x => x.Name.Contains(specialityName));
         }
     }
 }

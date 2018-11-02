@@ -24,6 +24,7 @@
 
         //Patients
         public const string ConfirmDeletePatient = "Confirme para eliminar al Paciente {0}.";
+        public const string ConfirmModifyPatient = "Confirma que desea Modificar el Paciente ?";
 
         //Professionals
         public const string DuplicatedRegisterNumber = "Ya existe un Profesional con el número de matrícula ingresado.";
