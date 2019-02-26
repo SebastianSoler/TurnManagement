@@ -10,7 +10,10 @@ namespace TurnManagement.App_Turn.Views
     {
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+
+            Style style = (Style)FindResource("DateHeaderStyle");
+            TurnCalendar.ActiveView.DateHeaderStyle = style;
         }
 
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -31,6 +34,11 @@ namespace TurnManagement.App_Turn.Views
         private void DXRibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
             DI.DI.ViewModelApplication.CloseWaitingLoader();
+        }
+
+        private void DXRibbonWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

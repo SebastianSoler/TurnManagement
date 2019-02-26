@@ -6,9 +6,9 @@ namespace TurnManagement.App_Turn.Views.Turns
     /// <summary>
     /// Interaction logic for NewTurnView.xaml
     /// </summary>
-    public partial class TurnView : DXRibbonWindow
+    public partial class TurnManagerView : DXRibbonWindow
     {
-        public TurnView()
+        public TurnManagerView()
         {
             InitializeComponent();
         }

@@ -91,11 +91,13 @@
     <Compile Include="CustomException\BusinessException.cs" />
     <Compile Include="DBUtils\DDBBAccess.cs" />
     <Compile Include="Enumerations\ApplicationPage.cs" />
+    <Compile Include="Enumerations\Status.cs" />
     <Compile Include="Strings\AccountMessages.cs" />
     <Compile Include="Strings\DateTimeFormats.cs" />
     <Compile Include="Strings\GeneralMessages.cs" />
     <Compile Include="Strings\TagNames.cs" />
     <Compile Include="Strings\ValidationMessages.cs" />
+    <Compile Include="Utils\EnumUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

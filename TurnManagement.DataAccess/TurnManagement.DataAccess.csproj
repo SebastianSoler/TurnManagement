@@ -56,6 +56,7 @@
     <Compile Include="Interfaces\Persistence\Core\ITurnManagementDataContext.cs" />
     <Compile Include="Interfaces\Persistence\Core\IQuerableDataContext.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IApplicationUserRepository.cs" />
+    <Compile Include="Interfaces\Persistence\Repositories\ITurnRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IPatientRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\IProfessionalRepository.cs" />
     <Compile Include="Interfaces\Persistence\Repositories\ISpecialityRepository.cs" />
@@ -71,9 +72,11 @@
     <Compile Include="Persistence\Core\TurnManagementDataContext.cs" />
     <Compile Include="Persistence\EntityConfiguration\ApplicationUserConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\BaseEntityConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfiguration\TurnConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\SpecialityConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\PatientConfiguration.cs" />
     <Compile Include="Persistence\EntityConfiguration\ProfessionalConfiguration.cs" />
+    <Compile Include="Persistence\Repositories\TurnRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Persistence\Repositories\PatientRepository.cs" />
     <Compile Include="Persistence\Repositories\ProfessionalRepository.cs" />

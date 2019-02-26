@@ -25,10 +25,5 @@ namespace TurnManagement.Business.Services
 
             return resultLog;
         }
-
-        protected override void BusinessValidations(ApplicationUser item)
-        {
-            //validaciones de negocio
-        }
     }
 }

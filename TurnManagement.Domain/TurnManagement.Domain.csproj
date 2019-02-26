@@ -94,5 +94,11 @@
   <ItemGroup>
     <Folder Include="Enumerations\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TurnManagement.CrossCutting\TurnManagement.CrossCutting.csproj">
+      <Project>{45307202-A020-4A1A-B9B1-D5FA85002050}</Project>
+      <Name>TurnManagement.CrossCutting</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

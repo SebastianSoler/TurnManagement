@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using Propago.Net.CrossCutting.CustomException;
 using TurnManagement.App_Turn.ViewModel.Application;
 using TurnManagement.App_Turn.ViewModel.Base;
-using TurnManagement.App_Turn.Views.Dialogs;
 using TurnManagement.Business.Interfaces.Services;
 using TurnManagement.CrossCutting.Enumerations;
 using TurnManagement.CrossCutting.Strings;
+using TurnManagement.CrossCutting.Utils;
 using TurnManagement.Domain.Entities;
 
 namespace TurnManagement.App_Turn.ViewModel
@@ -18,8 +19,8 @@ namespace TurnManagement.App_Turn.ViewModel
     {
         private ApplicationViewModel applicationViewModel;
 
-        private static string ValueDateEnd = DateTime.Now.ToShortDateString().ToString();
-        private static string ValueDateStart = new DateTime(1900, 01, 01).ToShortDateString().ToString();
+        private static readonly string ValueDateEnd = DateTime.Now.ToShortDateString().ToString();
+        private static readonly string ValueDateStart = new DateTime(1900, 01, 01).ToShortDateString().ToString();
 
         #region Private Properties SERVICES
 
@@ -31,10 +32,14 @@ namespace TurnManagement.App_Turn.ViewModel
 
         private readonly ISpecialityService specialityService;
 
+        private readonly ITurnService turnService;
+
         //Private Collections
         private IEnumerable<Speciality> _specialityList;
         private IEnumerable<Patient> _patientList;
         private IEnumerable<Professional> _professionalList;
+
+        public System.ComponentModel.BindingList<Turn> turnBindingList { get; set; }
 
         #endregion
 
@@ -73,6 +78,7 @@ namespace TurnManagement.App_Turn.ViewModel
         public IEnumerable<string> HealtInsuranceList { get; private set; } = new List<string>() { "IOMA", "OSDE", "ART" };
         public IEnumerable<string> PlanList { get; private set; } = new List<string>() { "210", "310", "410", "510" };
         public IEnumerable<string> GenreList { get; private set; } = new List<string>() { "Femenino", "Masculino", "No aclarado"};
+        public IEnumerable<string> StatusList { get; } = EnumUtils.ToDictionary<Status>().Select(x => x.Value.ToString()).ToList();
 
         #endregion
 
@@ -124,6 +130,14 @@ namespace TurnManagement.App_Turn.ViewModel
 
         #endregion
 
+        #region Turn Properties
+
+        public Turn NewTurn { get; set; } = new Turn();
+        public string StartHour { get; set; }
+        public string EndHour { get; set; }
+
+        #endregion
+
         #endregion
 
         #region COMMANDS
@@ -140,24 +154,31 @@ namespace TurnManagement.App_Turn.ViewModel
 
         #endregion
 
-        public RelayCommand Filter { get; set; }
+        #region COMMANDS for Actions
 
+        public RelayCommand Filter { get; set; }
+        //Patients
         public RelayCommand AddNewPatientRC { get; set; }
         public RelayCommand DeletePatientRC { get; set; }
         public RelayCommand ModifyPatientRC { get; set; }
         public RelayCommand ConfirmEditPatientRC { get; set; }
         public RelayCommand FindPatientRC { get; set; }
-
+        //Specality
         public RelayCommand AddNewSpecialityRC { get; set; }
         public RelayCommand DeleteSpecialityRC { get; set; }
         public RelayCommand ModifySpecialityRC { get; set; }
         public RelayCommand FindSpecialityRC { get; set; }
-
+        //Professional
         public RelayCommand AddNewProfessionalRC { get; set; }
         public RelayCommand DeleteProfessionalRC { get; set; }
         public RelayCommand ModifyProfessionalRC { get; set; }
         public RelayCommand ConfirmEditProfessionalRC { get; set; }
         public RelayCommand FindProfessionalRC { get; set; }
+        //Turn
+        public RelayCommand AddNewTurnRC { get; set; }
+        public RelayCommand ConfirmNewTurnRC { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -165,12 +186,14 @@ namespace TurnManagement.App_Turn.ViewModel
             IApplicationUserService applicationUserService, 
             IProfessionalService professionalService, 
             IPatientService patientService,
-            ISpecialityService specialityService)
+            ISpecialityService specialityService,
+            ITurnService turnService)
         {
             this.applicationUserService = applicationUserService;
             this.professionalService = professionalService;
             this.patientService = patientService;
             this.specialityService = specialityService;
+            this.turnService = turnService;
 
             applicationViewModel = DI.DI.ViewModelApplication;
 
@@ -178,6 +201,8 @@ namespace TurnManagement.App_Turn.ViewModel
 
             RegisterRelayCommands();
             InitializerDataList();
+
+            turnBindingList = GetTurnEvents();
         }
 
         private void RegisterRelayCommands()
@@ -266,7 +291,7 @@ namespace TurnManagement.App_Turn.ViewModel
 
         private void ApplyFilter(string value)
         {
-            string test = ProfessionalFilter;
+            string test = ProfessionalFilter ?? value;
 
             Console.WriteLine(test);
         }
@@ -593,5 +618,41 @@ namespace TurnManagement.App_Turn.ViewModel
         }
 
         #endregion
+
+
+        //TEST TURN COLLECTION
+
+        public static System.ComponentModel.BindingList<Turn> GetTurnEvents()
+        {
+            System.ComponentModel.BindingList<Turn> result = new System.ComponentModel.BindingList<Turn>();
+
+            result.Add(CreateTurn("sebastian" + " meeting", 1, 5));
+            result.Add(CreateTurn("Juan" + " travel", 1, 6));
+            result.Add(CreateTurn("Cosme" + " phone call", 1, 10));
+            result.Add(CreateTurn("Fulanito" + " sarasa", 1, 1));
+            result.Add(CreateTurn("Pablo" + " Sarrasqueta", 1, 4));
+            result.Add(CreateTurn("Roberto" + " Olmedo", 1, 7));
+
+            return result;
+        }
+
+        static Turn CreateTurn(string subject, int status, int label)
+        {
+            Random Rnd = new Random(DateTime.Now.Millisecond);
+            DateTime currentTime = DateTime.Now;
+
+            Turn apt = new Turn();
+            apt.Comment = subject;
+            var initTime = Rnd.Next(8, 18);
+
+            apt.StartDateTime = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, initTime, initTime % 2 == 0 ? 00 : 30, 0, DateTimeKind.Unspecified);
+            apt.EndDateTime = apt.StartDateTime.AddHours(2);
+
+            apt.Status = (Status)status;
+            apt.SpecialityId = label;
+            System.Threading.Thread.Sleep(10);
+
+            return apt;
+        }
     }
 }

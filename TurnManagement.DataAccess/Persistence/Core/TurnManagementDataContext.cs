@@ -22,6 +22,7 @@ namespace TurnManagement.DataAccess.Persistence.Core
         public virtual IDbSet<Patient> Patient { get; set; }
         public virtual IDbSet<ApplicationUser> ApplicationUser { get; set; }
         public virtual IDbSet<Speciality> Speciality { get; set; }
+        public virtual IDbSet<Turn> Turn { get; set; }
 
         public TurnManagementDataContext(): base(connectionString)
         {
@@ -52,6 +53,7 @@ namespace TurnManagement.DataAccess.Persistence.Core
             modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
             modelBuilder.Configurations.Add(new PatientConfiguration());
             modelBuilder.Configurations.Add(new SpecialityConfiguration());
+            modelBuilder.Configurations.Add(new TurnConfiguration());
         }
 
         public int SaveChanges(string loggedUser)

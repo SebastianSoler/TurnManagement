@@ -74,6 +74,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Core\BaseService.cs" />
     <Compile Include="Interfaces\Core\IBaseService.cs" />
+    <Compile Include="Interfaces\Services\ITurnService.cs" />
     <Compile Include="Interfaces\Services\IPatientService.cs" />
     <Compile Include="Interfaces\Services\IProfessionalService.cs" />
     <Compile Include="Interfaces\Services\IApplicationUserService.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SpecialityService.cs" />
+    <Compile Include="Services\TurnService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

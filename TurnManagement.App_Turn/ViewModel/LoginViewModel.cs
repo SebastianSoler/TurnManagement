@@ -108,8 +108,6 @@ namespace TurnManagement.App_Turn.ViewModel
 
                     await DI.DI.ViewModelApplication.ShowModalPage(ApplicationPage.MessageDialogBox, messageDialogBoxViewModel);
 
-                    //SE PRUEBA LANZAR PRIMERO EN EL MAIN Y LUEGO DESDE AQUI
-
                     //Loggin Successfuly & Open Main Page
                     applicationViewModel.HandleSuccessfulLogin();                    
                 }

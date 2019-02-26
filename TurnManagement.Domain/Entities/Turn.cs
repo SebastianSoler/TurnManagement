@@ -1,4 +1,5 @@
 ﻿using System;
+using TurnManagement.CrossCutting.Enumerations;
 
 namespace TurnManagement.Domain.Entities
 {
@@ -12,21 +13,26 @@ namespace TurnManagement.Domain.Entities
 
         public int SpecialityId { get; set; }
 
-        public virtual Speciality Specialty { get; set; }
+        public virtual Speciality Speciality { get; set; }
 
-        public DateTime Date { get;  set; }
+        public int PatientId { get; set; }
 
-        public string StartTime { get; set; }
+        public virtual Patient Patient { get; set; }
 
-        public string EndTime { get; set; }
+        public string Subject { get; set;}
+
+        public DateTime StartDateTime { get;  set; }
+
+        public DateTime EndDateTime { get;  set; }
+
+        public Status Status { get; set; }
 
         public double Discount { get; set; } = 0;
 
         public double Ammount { get; set; }
 
-        //Verificar si es necesario tener la clase completa o solo referenciar Ids
+        public string Comment { get; set; }
 
         #endregion
-
     }
 }

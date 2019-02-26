@@ -22,6 +22,7 @@ namespace TurnManagement.DataAccess.Migrations
             {
                 (new ApplicationUserDataInitializer(context)).Initialize();
                 (new SpecialityDataInitializer(context)).Initialize();
+                //Agregar inicializador de Stados del Turno
             }
         }
     }

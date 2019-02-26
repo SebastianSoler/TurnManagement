@@ -25,7 +25,7 @@ namespace TurnManagement.App_Turn.Controls
         /// <summary>
         /// The window for New Turns
         /// </summary>
-        private TurnView turnWindow;
+        private TurnManagerView turnWindow;
 
         /// <summary>
         /// The window for Patients Manager
@@ -137,7 +137,7 @@ namespace TurnManagement.App_Turn.Controls
                     {
                         case ApplicationPage.Turns:
                             //New window Instance
-                            turnWindow = new TurnView();
+                            turnWindow = new TurnManagerView();
                             turnWindow.DataContext = viewModel;
                             turnWindow.Owner = Application.Current.MainWindow;
                             // Show dialog
