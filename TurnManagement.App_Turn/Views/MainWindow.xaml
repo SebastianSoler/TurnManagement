@@ -13,8 +13,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TurnManagement.App_Turn.Views.Turns"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-    xmlns:local2="clr-namespace:TurnManagement.App_Turn.Styles"
-    x:Class="TurnManagement.App_Turn.Views.MainWindow"
+        xmlns:local2="clr-namespace:TurnManagement.App_Turn.Styles"
+        x:Class="TurnManagement.App_Turn.Views.MainWindow"
         
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -181,7 +181,8 @@
                                 </dxmvvm:Interaction.Behaviors>
                                 <!--endregion #EventToCommand-->
 
-                                <dxsch:SchedulerControl.DataSource>
+                                    <!--DATA MAPPING-->
+                                    <dxsch:SchedulerControl.DataSource>
                                     <dxsch:DataSource AppointmentsSource="{Binding turnBindingList}" ResourcesSource="{Binding turnBindingList}">
                                         <dxsch:DataSource.AppointmentMappings>
                                             <dxsch:AppointmentMappings 

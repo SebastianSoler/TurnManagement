@@ -3,14 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:app_turn="clr-namespace:TurnManagement.App_Turn"
+
+             xmlns:local1="clr-namespace:TurnManagement.App_Turn"
              d1p1:Ignorable="d" 
              StartupUri="Views/LogWindow.xaml">
              <!--StartupUri="Views/MainWindow.xaml"> -->
     <Application.Resources>
     <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         
-        <app_turn:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+        <local1:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
           
         <ResourceDictionary.MergedDictionaries>
             <!--Material Design-->

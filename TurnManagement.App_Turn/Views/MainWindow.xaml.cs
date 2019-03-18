@@ -12,8 +12,8 @@ namespace TurnManagement.App_Turn.Views
         {
             InitializeComponent();
 
-            Style style = (Style)FindResource("DateHeaderStyle");
-            TurnCalendar.ActiveView.DateHeaderStyle = style;
+            //Style style = (Style)FindResource("DateHeaderStyle");
+            //TurnCalendar.ActiveView.DateHeaderStyle = style;
         }
 
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
